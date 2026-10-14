@@ -6,44 +6,29 @@ public class IntervalWaiter : IWaiter
 {
     private readonly TimeProvider timeProvider;
 
-    private TimeSpan prevInterval;
-    private DateTime prevTickTimestamp;
-
     private PeriodicTimer Timer { get; }
 
     public TimeSpan Interval
     {
         get => Timer.Period;
-        set
-        {
-            GetLastTickDate();
-            prevInterval = Timer.Period;
-            Timer.Period = value;
-        }
+        set => Timer.Period = value;
     }
 
-    public DateTime NextTick => GetLastTickDate().Add(prevInterval);
+    public DateTime NextTick { get; private set; }
 
     public TimeSpan Delay => NextTick - timeProvider.GetLocalNow();
 
     public IntervalWaiter(TimeSpan interval, TimeProvider? timeProvider = null)
     {
         this.timeProvider = timeProvider ?? TimeProvider.System;
-
-        prevTickTimestamp = this.timeProvider.GetLocalNow().DateTime;
-
-        Timer = new(prevInterval = interval);
+        Timer = new(interval);
+        NextTick = this.timeProvider.GetLocalNow().DateTime.Add(Interval);
     }
 
     public async Task AwaitAsync(CancellationToken cancellationToken = default)
-        => await Timer.WaitForNextTickAsync(cancellationToken);
-
-    private DateTime GetLastTickDate()
     {
-        var incrUntil = timeProvider.GetLocalNow() - prevInterval;
-        while (prevTickTimestamp < incrUntil)
-            prevTickTimestamp += prevInterval;
-        return prevTickTimestamp;
+        await Timer.WaitForNextTickAsync(cancellationToken);
+        NextTick = timeProvider.GetLocalNow().DateTime.Add(Interval);
     }
 
     public override string ToString() => ((IWaiter)this).Info;

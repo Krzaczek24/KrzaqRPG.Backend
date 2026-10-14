@@ -1,11 +1,10 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using NCrontab;
 using NLog.Extensions.Logging;
 using RpgAdventureGame.Backend.Common;
+using RpgAdventureGame.Backend.Database.SQLite;
+using RpgAdventureGame.Backend.Engine.Core.Waiter;
 using RpgAdventureGame.Backend.Engine.Core.Worker;
 using RpgAdventureGame.Backend.Engine.Jobs;
-using RpgAdventureGame.Database.SQLite;
 
 namespace RpgAdventureGame.Backend.Engine
 {
@@ -17,8 +16,15 @@ namespace RpgAdventureGame.Backend.Engine
 
             builder.Logging.AddNLog();
 
+            builder.Services.AddMemoryCache();
+
             builder.Services.AddAppDatabase(EnvInfo.IsDebug ? new LoggerFactory([new NLogLoggerProvider()]) : null);
+
+            builder.Services.AddTransient(sp => new IntervalWaiter(TimeSpan.FromSeconds(1)));
+            builder.Services.AddTransient(sp => new ScheduleWaiter(CrontabSchedule.Parse("* * * * *")));
+
             builder.Services.AddHostedService<ContinuousWorker<TravelProcessingJob>>();
+            builder.Services.AddHostedService<ScheduleWorker<MapEventSettingJob>>();
 
             var app = builder.Build();
 

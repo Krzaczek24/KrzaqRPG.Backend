@@ -1,6 +1,5 @@
 ﻿using RpgAdventureGame.Backend.Database.SQLite.Base;
 using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJobEvent;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Path;
 
 namespace RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob
 {

@@ -36,8 +36,10 @@ namespace RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob
                 .IsRequired();
 
             builder.Property(x => x.CronExpression)
-                .HasColumnName("CronExpression")
-                .IsRequired();
+                .HasColumnName("CronExpression");
+
+            builder.Property(x => x.IdleInterval)
+                .HasColumnName("IdleInterval");
 
             builder.Property(x => x.BatchSize)
                 .HasColumnName("BatchSize")

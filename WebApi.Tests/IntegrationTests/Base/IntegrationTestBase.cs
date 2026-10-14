@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RpgAdventureGame.Backend.Database.SQLite;
 using RpgAdventureGame.Backend.WebApi.Core.Errors;
-using RpgAdventureGame.Database.SQLite;
 
 namespace RpgAdventureGame.Backend.WebApi.Tests.IntegrationTests.Base
 {

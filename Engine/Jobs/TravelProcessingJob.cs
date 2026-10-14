@@ -4,9 +4,9 @@ namespace RpgAdventureGame.Backend.Engine.Jobs
 {
     internal class TravelProcessingJob : IJob
     {
-        public Task ExecuteAsync(IJobContext context, CancellationToken stoppingToken)
+        public async Task ExecuteAsync(IJobContext context, CancellationToken stoppingToken)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] - {context}");
         }
     }
 }

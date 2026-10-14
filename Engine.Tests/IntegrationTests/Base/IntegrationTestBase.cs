@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using RpgAdventureGame.Backend.Database.SQLite;
 using RpgAdventureGame.Backend.Database.SQLite.Base;
-using RpgAdventureGame.Database.SQLite;
 
 namespace RpgAdventureGame.Backend.Engine.Tests.IntegrationTests.Base
 {
@@ -25,6 +24,8 @@ namespace RpgAdventureGame.Backend.Engine.Tests.IntegrationTests.Base
 
             services.AddAppDbAccesses();
 
+            AddServices(services);
+
             provider = services.BuildServiceProvider();
         }
 
@@ -38,6 +39,11 @@ namespace RpgAdventureGame.Backend.Engine.Tests.IntegrationTests.Base
             var entities = new List<DbTable>();
             await AddEntities(entities);
             await db.AddRangeAsync(entities);
+        }
+
+        protected virtual void AddServices(IServiceCollection services)
+        {
+
         }
 
         protected abstract Task AddEntities(List<DbTable> entities);

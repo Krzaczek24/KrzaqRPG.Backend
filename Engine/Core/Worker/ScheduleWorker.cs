@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.DependencyInjection;
 using NCrontab;
 using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob;
 using RpgAdventureGame.Backend.Engine.Core.Job;
@@ -9,7 +8,7 @@ using RpgAdventureGame.Backend.Engine.Core.Worker.Base;
 namespace RpgAdventureGame.Backend.Engine.Core.Worker
 {
     internal sealed class ScheduleWorker<TJob>(
-        ILogger logger,
+        ILogger<TJob> logger,
         IMemoryCache cache,
         IServiceScopeFactory scopeFactory,
         ScheduleWaiter waiter)

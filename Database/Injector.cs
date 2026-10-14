@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using RpgAdventureGame.Backend.Database.SQLite;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace RpgAdventureGame.Database.SQLite
+namespace RpgAdventureGame.Backend.Database.SQLite
 {
     public static partial class Injector
     {
