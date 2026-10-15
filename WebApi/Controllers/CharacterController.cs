@@ -4,8 +4,6 @@ using KrzaqRPG.Backend.WebApi.Core.Controllers;
 using KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.Create;
 using KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.SetLocation;
 using KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.StartTravel;
-using KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.StartTravel;
-using KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.GetDetails;
 using KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.GetDetails;
 using KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.Search;
 using Microsoft.AspNetCore.Mvc;

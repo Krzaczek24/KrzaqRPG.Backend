@@ -2,7 +2,6 @@
 using Krzaq.MediatR.Implementations;
 using Krzaq.MediatR.Interfaces;
 using KrzaqRPG.Backend.Database.SQLite;
-using KrzaqRPG.Backend.Database.SQLite;
 using KrzaqRPG.Backend.WebApi;
 using KrzaqRPG.Backend.WebApi.Core.Errors;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,4 @@
-﻿using KrzaqRPG.Backend.Database.SQLite;
-using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobEvent;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobEvent;
 using Microsoft.EntityFrameworkCore;
 
 namespace KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob
