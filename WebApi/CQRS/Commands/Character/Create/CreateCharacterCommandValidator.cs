@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using Krzaq.MediatR.Implementations;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Character;
-using RpgAdventureGame.Backend.WebApi.Core.Errors;
-using RpgAdventureGame.Backend.WebApi.Core.Extensions;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
+using KrzaqRPG.Backend.WebApi.Core.Errors;
+using KrzaqRPG.Backend.WebApi.Core.Extensions;
 
-namespace RpgAdventureGame.Backend.WebApi.CQRS.Commands.Character.Create
+namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.Create
 {
     public class CreateCharacterCommandValidator : RequestValidator<CreateCharacterCommand>
     {

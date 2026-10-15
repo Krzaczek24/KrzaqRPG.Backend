@@ -1,6 +1,6 @@
-﻿using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
 
-namespace RpgAdventureGame.Backend.Engine.Core.Job
+namespace KrzaqRPG.Backend.Engine.Core.Job
 {
     public interface IJobContext
     {

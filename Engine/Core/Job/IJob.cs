@@ -1,4 +1,4 @@
-﻿namespace RpgAdventureGame.Backend.Engine.Core.Job
+﻿namespace KrzaqRPG.Backend.Engine.Core.Job
 {
     public interface IJob
     {

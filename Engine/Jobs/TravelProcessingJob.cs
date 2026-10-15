@@ -1,6 +1,6 @@
-﻿using RpgAdventureGame.Backend.Engine.Core.Job;
+﻿using KrzaqRPG.Backend.Engine.Core.Job;
 
-namespace RpgAdventureGame.Backend.Engine.Jobs
+namespace KrzaqRPG.Backend.Engine.Jobs
 {
     internal class TravelProcessingJob : IJob
     {

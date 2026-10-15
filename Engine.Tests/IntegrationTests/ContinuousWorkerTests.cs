@@ -1,8 +1,8 @@
-﻿using RpgAdventureGame.Backend.Database.SQLite.Base;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob;
-using RpgAdventureGame.Backend.Engine.Tests.IntegrationTests.Base;
+﻿using KrzaqRPG.Backend.Database.SQLite.Base;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
+using KrzaqRPG.Backend.Engine.Tests.IntegrationTests.Base;
 
-namespace RpgAdventureGame.Backend.Engine.Tests.IntegrationTests
+namespace KrzaqRPG.Backend.Engine.Tests.IntegrationTests
 {
     internal class ContinuousWorkerTests : IntegrationTestBase
     {

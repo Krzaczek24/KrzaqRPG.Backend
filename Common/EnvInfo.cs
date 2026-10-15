@@ -1,4 +1,4 @@
-﻿namespace RpgAdventureGame.Backend.Common
+﻿namespace KrzaqRPG.Backend.Common
 {
     public static class EnvInfo
     {

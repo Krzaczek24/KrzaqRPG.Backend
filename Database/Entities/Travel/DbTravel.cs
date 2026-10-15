@@ -1,8 +1,8 @@
-﻿using RpgAdventureGame.Backend.Database.SQLite.Base;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Character;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.TravelPath;
+﻿using KrzaqRPG.Backend.Database.SQLite.Base;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
+using KrzaqRPG.Backend.Database.SQLite.Entities.TravelPath;
 
-namespace RpgAdventureGame.Backend.Database.SQLite.Entities.Travel
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.Travel
 {
     public class DbTravel : DbTable
     {

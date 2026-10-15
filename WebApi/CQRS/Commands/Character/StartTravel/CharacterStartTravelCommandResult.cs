@@ -1,4 +1,4 @@
-﻿namespace RpgAdventureGame.Backend.WebApi.CQRS.Commands.Character.StartTravel
+﻿namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.StartTravel
 {
     public class CharacterStartTravelCommandResult
     {

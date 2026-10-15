@@ -1,6 +1,6 @@
-﻿using RpgAdventureGame.Backend.WebApi.Core.Errors;
+﻿using KrzaqRPG.Backend.WebApi.Core.Errors;
 
-namespace RpgAdventureGame.Backend.WebApi.Core.Exceptions
+namespace KrzaqRPG.Backend.WebApi.Core.Exceptions
 {
     public class BadRequestException(IEnumerable<ErrorModel> errors, Exception? innerException = null)
         : Krzaq.Exceptions.Http.Error.BadRequestException<ErrorModel>(errors, innerException)

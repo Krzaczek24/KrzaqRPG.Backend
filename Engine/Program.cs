@@ -1,12 +1,12 @@
+using KrzaqRPG.Backend.Common;
+using KrzaqRPG.Backend.Database.SQLite;
+using KrzaqRPG.Backend.Engine.Core.Waiter;
+using KrzaqRPG.Backend.Engine.Core.Worker;
+using KrzaqRPG.Backend.Engine.Jobs;
 using NCrontab;
 using NLog.Extensions.Logging;
-using RpgAdventureGame.Backend.Common;
-using RpgAdventureGame.Backend.Database.SQLite;
-using RpgAdventureGame.Backend.Engine.Core.Waiter;
-using RpgAdventureGame.Backend.Engine.Core.Worker;
-using RpgAdventureGame.Backend.Engine.Jobs;
 
-namespace RpgAdventureGame.Backend.Engine
+namespace KrzaqRPG.Backend.Engine
 {
     public class Program
     {

@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KrzaqRPG.Backend.Database.SQLite.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RpgAdventureGame.Backend.Database.SQLite.Base;
 
-namespace RpgAdventureGame.Backend.Database.SQLite.Entities.Travel
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.Travel
 {
     internal class DbTravelMap : DbTableMap<DbTravel>
     {

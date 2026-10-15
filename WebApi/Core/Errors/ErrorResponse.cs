@@ -1,6 +1,6 @@
 ﻿using Krzaq.Errors.Model;
 
-namespace RpgAdventureGame.Backend.WebApi.Core.Errors
+namespace KrzaqRPG.Backend.WebApi.Core.Errors
 {
     public class ErrorResponse : ErrorResponseModel<ErrorCode>
     {

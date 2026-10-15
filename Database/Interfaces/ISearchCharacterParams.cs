@@ -1,4 +1,4 @@
-﻿namespace RpgAdventureGame.Backend.Database.SQLite.Interfaces
+﻿namespace KrzaqRPG.Backend.Database.SQLite.Interfaces
 {
     public interface ISearchCharacterParams
     {

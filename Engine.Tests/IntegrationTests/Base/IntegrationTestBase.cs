@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KrzaqRPG.Backend.Database.SQLite;
+using KrzaqRPG.Backend.Database.SQLite;
+using KrzaqRPG.Backend.Database.SQLite.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using RpgAdventureGame.Backend.Database.SQLite;
-using RpgAdventureGame.Backend.Database.SQLite.Base;
 
-namespace RpgAdventureGame.Backend.Engine.Tests.IntegrationTests.Base
+namespace KrzaqRPG.Backend.Engine.Tests.IntegrationTests.Base
 {
     [NonParallelizable]
     internal abstract class IntegrationTestBase

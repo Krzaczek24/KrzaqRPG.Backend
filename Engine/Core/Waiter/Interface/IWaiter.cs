@@ -1,4 +1,4 @@
-﻿namespace RpgAdventureGame.Backend.Engine.Core.Waiter.Interface
+﻿namespace KrzaqRPG.Backend.Engine.Core.Waiter.Interface
 {
     public interface IWaiter
     {

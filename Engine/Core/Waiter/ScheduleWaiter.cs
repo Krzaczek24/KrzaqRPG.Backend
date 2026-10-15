@@ -1,7 +1,7 @@
-﻿using NCrontab;
-using RpgAdventureGame.Backend.Engine.Core.Waiter.Interface;
+﻿using KrzaqRPG.Backend.Engine.Core.Waiter.Interface;
+using NCrontab;
 
-namespace RpgAdventureGame.Backend.Engine.Core.Waiter;
+namespace KrzaqRPG.Backend.Engine.Core.Waiter;
 
 public class ScheduleWaiter(CrontabSchedule cron, TimeProvider? timeProvider = null) : IWaiter
 {

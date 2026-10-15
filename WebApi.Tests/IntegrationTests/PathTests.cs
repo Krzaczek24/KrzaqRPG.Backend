@@ -1,7 +1,7 @@
-﻿using RpgAdventureGame.Backend.WebApi.Controllers;
-using RpgAdventureGame.Backend.WebApi.Tests.IntegrationTests.Base;
+﻿using KrzaqRPG.Backend.WebApi.Controllers;
+using KrzaqRPG.WebApi.Tests.IntegrationTests.Base;
 
-namespace RpgAdventureGame.Backend.WebApi.Tests.IntegrationTests
+namespace KrzaqRPG.WebApi.Tests.IntegrationTests
 {
     internal class PathTests : IntegrationTestBase
     {

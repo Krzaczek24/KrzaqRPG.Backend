@@ -1,6 +1,6 @@
-﻿using RpgAdventureGame.Backend.WebApi.Core.Extensions;
+﻿using KrzaqRPG.Backend.WebApi.Core.Extensions;
 
-namespace RpgAdventureGame.Backend.WebApi.Core.Middlewares
+namespace KrzaqRPG.Backend.WebApi.Core.Middlewares
 {
     public class CopyingHeadersMiddleware(RequestDelegate next)
     {

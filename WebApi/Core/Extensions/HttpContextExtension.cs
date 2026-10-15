@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace RpgAdventureGame.Backend.WebApi.Core.Extensions
+namespace KrzaqRPG.Backend.WebApi.Core.Extensions
 {
     public static class HttpContextExtension
     {

@@ -1,8 +1,8 @@
-﻿using NLog;
-using RpgAdventureGame.Backend.WebApi.Core.Extensions;
+﻿using KrzaqRPG.Backend.WebApi.Core.Extensions;
+using NLog;
 using System.Text;
 
-namespace RpgAdventureGame.Backend.WebApi.Core.Middlewares
+namespace KrzaqRPG.Backend.WebApi.Core.Middlewares
 {
     public class LoggingMiddleware(RequestDelegate next)
     {

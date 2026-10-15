@@ -1,8 +1,8 @@
-﻿using RpgAdventureGame.Backend.Database.SQLite.Base;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Character;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Path;
+﻿using KrzaqRPG.Backend.Database.SQLite.Base;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Path;
 
-namespace RpgAdventureGame.Backend.Database.SQLite.Entities.Area
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.Area
 {
     public class DbArea : DbTable
     {

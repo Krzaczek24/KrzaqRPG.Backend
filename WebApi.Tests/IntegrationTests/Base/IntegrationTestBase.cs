@@ -1,17 +1,19 @@
 ﻿using Krzaq.MediatR;
 using Krzaq.MediatR.Implementations;
 using Krzaq.MediatR.Interfaces;
+using KrzaqRPG.Backend.Database.SQLite;
+using KrzaqRPG.Backend.Database.SQLite;
+using KrzaqRPG.Backend.WebApi;
+using KrzaqRPG.Backend.WebApi.Core.Errors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using RpgAdventureGame.Backend.Database.SQLite;
-using RpgAdventureGame.Backend.WebApi.Core.Errors;
 
-namespace RpgAdventureGame.Backend.WebApi.Tests.IntegrationTests.Base
+namespace KrzaqRPG.WebApi.Tests.IntegrationTests.Base
 {
     [NonParallelizable]
     internal abstract class IntegrationTestBase
     {
-        private const string RealDbFilePath = @"E:\RpgAdventureGame\RpgAdventureGame.SQLite.db";
+        private const string RealDbFilePath = @"E:\KrzaqRPG\KrzaqRPG.SQLite.db";
         private string testDbFilePath = string.Empty;
 
         private ServiceProvider? provider;

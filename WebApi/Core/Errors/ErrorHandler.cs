@@ -1,11 +1,11 @@
 ﻿using FluentValidation.Results;
 using Krzaq.Attributes.HttpStatus;
 using Krzaq.MediatR.Interfaces;
+using KrzaqRPG.Backend.WebApi.Core.Exceptions;
 using KrzaqTools.Extensions;
-using RpgAdventureGame.Backend.WebApi.Core.Exceptions;
 using System.Net;
 
-namespace RpgAdventureGame.Backend.WebApi.Core.Errors
+namespace KrzaqRPG.Backend.WebApi.Core.Errors
 {
     public class ErrorHandler : IRequestErrorsHandler
     {

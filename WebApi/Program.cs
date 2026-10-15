@@ -1,20 +1,20 @@
 using FluentValidation;
 using Krzaq.MediatR;
 using Krzaq.MediatR.Interfaces;
+using KrzaqRPG.Backend.Common;
+using KrzaqRPG.Backend.Database.SQLite;
+using KrzaqRPG.Backend.WebApi.Core.Converters;
+using KrzaqRPG.Backend.WebApi.Core.Errors;
+using KrzaqRPG.Backend.WebApi.Core.Middlewares;
+using KrzaqRPG.Backend.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using NLog.Extensions.Logging;
 using NLog.Web;
-using RpgAdventureGame.Backend.Common;
-using RpgAdventureGame.Backend.Database.SQLite;
-using RpgAdventureGame.Backend.WebApi.Core.Converters;
-using RpgAdventureGame.Backend.WebApi.Core.Errors;
-using RpgAdventureGame.Backend.WebApi.Core.Middlewares;
-using RpgAdventureGame.Backend.WebApi.Services;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RpgAdventureGame.Backend.WebApi
+namespace KrzaqRPG.Backend.WebApi
 {
     public class Program
     {
@@ -81,7 +81,7 @@ namespace RpgAdventureGame.Backend.WebApi
 
             if (EnvInfo.IsDebug)
             {
-                app.UseSwaggerUI(x => x.SwaggerEndpoint(ENDPOINT, nameof(RpgAdventureGame)));
+                app.UseSwaggerUI(x => x.SwaggerEndpoint(ENDPOINT, nameof(KrzaqRPG)));
             }
 
             app.UseWhen(

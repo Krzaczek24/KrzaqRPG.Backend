@@ -1,11 +1,11 @@
 ﻿using Krzaq.Converters.EnumToString;
 using Krzaq.Exceptions.Http.Base;
 using Krzaq.Exceptions.Http.Error.Base;
+using KrzaqRPG.Backend.WebApi.Core.Errors;
 using NLog;
-using RpgAdventureGame.Backend.WebApi.Core.Errors;
 using System.Text.Json;
 
-namespace RpgAdventureGame.Backend.WebApi.Core.Middlewares
+namespace KrzaqRPG.Backend.WebApi.Core.Middlewares
 {
     public class ExceptionHandlingMiddleware(RequestDelegate next)
     {

@@ -1,4 +1,4 @@
-﻿namespace RpgAdventureGame.Backend.WebApi.CQRS.Queries.Area.GetAvailablePaths
+﻿namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Area.GetAvailablePaths
 {
     public class GetAreaAvailablePathsQueryResult
     {

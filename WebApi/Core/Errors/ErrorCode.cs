@@ -3,7 +3,7 @@ using Krzaq.Attributes.HttpStatus;
 using System.ComponentModel;
 using System.Net;
 
-namespace RpgAdventureGame.Backend.WebApi.Core.Errors
+namespace KrzaqRPG.Backend.WebApi.Core.Errors
 {
     [EnumToString(NameAlterMode.ToUpperSnake)]
     public enum ErrorCode

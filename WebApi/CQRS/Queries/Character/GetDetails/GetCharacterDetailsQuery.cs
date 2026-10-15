@@ -1,6 +1,6 @@
 ﻿using Krzaq.MediatR.Interfaces;
 
-namespace RpgAdventureGame.Backend.WebApi.CQRS.Queries.Character.GetDetails
+namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.GetDetails
 {
     public class GetCharacterDetailsQuery : IRequest<GetCharacterDetailsQueryResult>
     {

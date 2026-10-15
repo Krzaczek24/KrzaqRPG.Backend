@@ -1,4 +1,4 @@
-﻿namespace RpgAdventureGame.Backend.WebApi.Tests.UnitTests
+﻿namespace KrzaqRPG.WebApi.Tests.UnitTests
 {
     public class Tests
     {

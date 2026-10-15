@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using RpgAdventureGame.Backend.Common;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob;
-using RpgAdventureGame.Backend.Engine.Core.Job;
-using RpgAdventureGame.Backend.Engine.Core.Waiter.Interface;
+﻿using KrzaqRPG.Backend.Common;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
+using KrzaqRPG.Backend.Engine.Core.Job;
+using KrzaqRPG.Backend.Engine.Core.Waiter.Interface;
+using Microsoft.Extensions.Caching.Memory;
 
-namespace RpgAdventureGame.Backend.Engine.Core.Worker.Base
+namespace KrzaqRPG.Backend.Engine.Core.Worker.Base
 {
     internal abstract class EngineWorker<TJob, TWaiter>(
         ILogger<TJob> logger,

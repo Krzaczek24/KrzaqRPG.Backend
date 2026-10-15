@@ -1,4 +1,4 @@
-﻿namespace RpgAdventureGame.Backend.WebApi.CQRS.Queries.Character.Search
+﻿namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.Search
 {
     public class SearchCharactersQueryResult
     {

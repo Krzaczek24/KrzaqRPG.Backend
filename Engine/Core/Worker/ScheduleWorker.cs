@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
+using KrzaqRPG.Backend.Engine.Core.Job;
+using KrzaqRPG.Backend.Engine.Core.Waiter;
+using KrzaqRPG.Backend.Engine.Core.Worker.Base;
+using Microsoft.Extensions.Caching.Memory;
 using NCrontab;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob;
-using RpgAdventureGame.Backend.Engine.Core.Job;
-using RpgAdventureGame.Backend.Engine.Core.Waiter;
-using RpgAdventureGame.Backend.Engine.Core.Worker.Base;
 
-namespace RpgAdventureGame.Backend.Engine.Core.Worker
+namespace KrzaqRPG.Backend.Engine.Core.Worker
 {
     internal sealed class ScheduleWorker<TJob>(
         ILogger<TJob> logger,

@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Area;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Path;
-using RpgAdventureGame.Backend.Database.SQLite.Interfaces;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.Area;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Path;
+using KrzaqRPG.Backend.Database.SQLite.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-namespace RpgAdventureGame.Backend.Database.SQLite.Entities.Character
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.Character
 {
     public interface IDbCharacterAccess
     {

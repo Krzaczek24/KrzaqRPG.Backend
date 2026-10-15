@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Path;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.Path;
+using Microsoft.EntityFrameworkCore;
 
-namespace RpgAdventureGame.Backend.Database.SQLite.Entities.Area
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.Area
 {
     public interface IDbAreaAccess
     {

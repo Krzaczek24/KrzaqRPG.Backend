@@ -1,7 +1,7 @@
-﻿using RpgAdventureGame.Backend.Database.SQLite.Base;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob;
+﻿using KrzaqRPG.Backend.Database.SQLite.Base;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
 
-namespace RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJobEvent
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobEvent
 {
     public class DbEngineWorkerJobEvent : DbTable
     {

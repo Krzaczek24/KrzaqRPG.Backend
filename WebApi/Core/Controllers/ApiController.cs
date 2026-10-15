@@ -1,9 +1,9 @@
 ﻿using Krzaq.Attributes.ProducesResponse;
+using KrzaqRPG.Backend.WebApi.Core.Errors;
 using Microsoft.AspNetCore.Mvc;
-using RpgAdventureGame.Backend.WebApi.Core.Errors;
 using System.Net;
 
-namespace RpgAdventureGame.Backend.WebApi.Core.Controllers
+namespace KrzaqRPG.Backend.WebApi.Core.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

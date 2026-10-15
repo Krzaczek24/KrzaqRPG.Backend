@@ -1,7 +1,7 @@
 ﻿using Krzaq.Extensions.IEnumerable;
-using RpgAdventureGame.Backend.Engine.Core.Waiter;
+using KrzaqRPG.Backend.Engine.Core.Waiter;
 
-namespace RpgAdventureGame.Backend.Engine.Tests.UnitTests;
+namespace KrzaqRPG.Backend.Engine.Tests.UnitTests;
 
 internal class IntervalWaiterTests
 {

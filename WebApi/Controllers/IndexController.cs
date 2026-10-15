@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RpgAdventureGame.Backend.WebApi.Core.Controllers;
+﻿using KrzaqRPG.Backend.WebApi.Core.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
-namespace RpgAdventureGame.Backend.WebApi.Controllers
+namespace KrzaqRPG.Backend.WebApi.Controllers
 {
     [Route("index")]
     public class IndexController : ApiController

@@ -1,9 +1,8 @@
 ﻿using Krzaq.MediatR.Interfaces;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Character;
-using RpgAdventureGame.Backend.Common.Enums;
+using KrzaqRPG.Backend.Common.Enums;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
 
-
-namespace RpgAdventureGame.Backend.WebApi.CQRS.Commands.Character.SetLocation
+namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.SetLocation
 {
     public class SetCharacterLocationCommandHandler(IDbCharacterAccess characterAccess)
         : IRequestHandler<SetCharacterLocationCommand>

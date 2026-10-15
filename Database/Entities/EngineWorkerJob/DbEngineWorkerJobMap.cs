@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KrzaqRPG.Backend.Database.SQLite.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RpgAdventureGame.Backend.Database.SQLite.Base;
 
-namespace RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob
 {
     internal class DbEngineWorkerJobMap : DbTableMap<DbEngineWorkerJob>
     {

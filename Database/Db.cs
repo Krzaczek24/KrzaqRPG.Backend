@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Area;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Character;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJobEvent;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Path;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Travel;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.Area;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobEvent;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Path;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Travel;
+using Microsoft.EntityFrameworkCore;
 
-namespace RpgAdventureGame.Backend.Database.SQLite
+namespace KrzaqRPG.Backend.Database.SQLite
 {
     public class Db(DbContextOptions<Db> options) : DbContext(options)
     {
@@ -22,7 +22,7 @@ namespace RpgAdventureGame.Backend.Database.SQLite
             // Only configure default SQLite file when no other options were configured by the caller.
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite(@"Data Source=E:\RpgAdventureGame\RpgAdventureGame.SQLite.db");
+                optionsBuilder.UseSqlite(@"Data Source=E:\KrzaqRPG\KrzaqRPG.SQLite.db");
             }
         }
 

@@ -1,4 +1,4 @@
-﻿namespace RpgAdventureGame.Backend.Database.SQLite.Base
+﻿namespace KrzaqRPG.Backend.Database.SQLite.Base
 {
     public class DbTable
     {

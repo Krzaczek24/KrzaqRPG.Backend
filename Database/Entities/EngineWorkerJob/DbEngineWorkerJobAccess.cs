@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJobEvent;
+﻿using KrzaqRPG.Backend.Database.SQLite;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobEvent;
+using Microsoft.EntityFrameworkCore;
 
-namespace RpgAdventureGame.Backend.Database.SQLite.Entities.EngineWorkerJob
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob
 {
     public interface IDbEngineWorkerJobAccess
     {

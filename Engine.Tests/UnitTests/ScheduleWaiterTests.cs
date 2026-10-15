@@ -1,8 +1,8 @@
-﻿using NCrontab;
-using RpgAdventureGame.Backend.Engine.Core.Waiter;
+﻿using KrzaqRPG.Backend.Engine.Core.Waiter;
 using Microsoft.Extensions.Time.Testing;
+using NCrontab;
 
-namespace RpgAdventureGame.Backend.Engine.Tests.UnitTests;
+namespace KrzaqRPG.Backend.Engine.Tests.UnitTests;
 
 internal class ScheduleWaiterTests
 {

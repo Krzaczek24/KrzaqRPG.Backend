@@ -1,6 +1,6 @@
-﻿using RpgAdventureGame.Backend.Engine.Core.Waiter.Interface;
+﻿using KrzaqRPG.Backend.Engine.Core.Waiter.Interface;
 
-namespace RpgAdventureGame.Backend.Engine.Core.Waiter;
+namespace KrzaqRPG.Backend.Engine.Core.Waiter;
 
 internal abstract class Waiter<T>(TimeProvider? timeProvider = null) : IWaiter
 {

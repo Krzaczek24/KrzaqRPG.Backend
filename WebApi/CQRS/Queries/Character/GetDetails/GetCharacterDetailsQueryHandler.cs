@@ -1,10 +1,10 @@
 ﻿using Krzaq.MediatR.Interfaces;
-using RpgAdventureGame.Backend.Database.SQLite.Entities.Character;
-using RpgAdventureGame.Backend.WebApi.Core.Errors;
-using RpgAdventureGame.Backend.WebApi.Core.Exceptions;
-using RpgAdventureGame.Backend.Common.Enums;
+using KrzaqRPG.Backend.Common.Enums;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
+using KrzaqRPG.Backend.WebApi.Core.Errors;
+using KrzaqRPG.Backend.WebApi.Core.Exceptions;
 
-namespace RpgAdventureGame.Backend.WebApi.CQRS.Queries.Character.GetDetails
+namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.GetDetails
 {
     public class GetCharacterDetailsQueryHandler(IDbCharacterAccess characterAccess)
         : IRequestHandler<GetCharacterDetailsQuery, GetCharacterDetailsQueryResult>

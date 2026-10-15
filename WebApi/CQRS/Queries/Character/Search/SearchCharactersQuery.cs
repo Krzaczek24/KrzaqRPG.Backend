@@ -1,7 +1,7 @@
 ﻿using Krzaq.MediatR.Interfaces;
-using RpgAdventureGame.Backend.Database.SQLite.Interfaces;
+using KrzaqRPG.Backend.Database.SQLite.Interfaces;
 
-namespace RpgAdventureGame.Backend.WebApi.CQRS.Queries.Character.Search
+namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.Search
 {
     public class SearchCharactersQuery : IRequest<SearchCharactersQueryResult>, ISearchCharacterParams
     {
