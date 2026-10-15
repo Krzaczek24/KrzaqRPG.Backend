@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Common/KrzaqRPG.Backend.Common.csproj" />
+  <Project Path="Database/KrzaqRPG.Backend.Database.SQLite.csproj" />
+  <Project Path="Engine.Tests/KrzaqRPG.Backend.Engine.Tests.csproj" />
+  <Project Path="Engine/KrzaqRPG.Backend.Engine.csproj" />
+  <Project Path="WebApi.Tests/KrzaqRPG.WebApi.Tests.csproj" />
+  <Project Path="WebApi/KrzaqRPG.Backend.WebApi.csproj" />
+</Solution>

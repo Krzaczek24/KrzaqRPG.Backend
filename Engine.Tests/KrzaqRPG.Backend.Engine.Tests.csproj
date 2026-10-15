@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Engine\RpgAdventureGame.Backend.Engine.csproj" />
+    <ProjectReference Include="..\Engine\KrzaqRPG.Backend.Engine.csproj" />
   </ItemGroup>
 
   <ItemGroup>

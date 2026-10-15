@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\RpgAdventureGame.Backend.Common.csproj" />
+    <ProjectReference Include="..\Common\KrzaqRPG.Backend.Common.csproj" />
   </ItemGroup>
 
 </Project>

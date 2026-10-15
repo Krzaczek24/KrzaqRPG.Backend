@@ -1,8 +1,0 @@
-<Solution>
-  <Project Path="Common/RpgAdventureGame.Backend.Common.csproj" />
-  <Project Path="Database/RpgAdventureGame.Backend.Database.SQLite.csproj" />
-  <Project Path="Engine/RpgAdventureGame.Backend.Engine.csproj" />
-  <Project Path="Engine.Tests/RpgAdventureGame.Backend.Engine.Tests.csproj" />
-  <Project Path="WebApi.Tests/RpgAdventureGame.Backend.WebApi.Tests.csproj" />
-  <Project Path="WebApi/RpgAdventureGame.Backend.WebApi.csproj" />
-</Solution>

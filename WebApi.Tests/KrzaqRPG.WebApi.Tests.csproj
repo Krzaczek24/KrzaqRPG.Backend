@@ -20,7 +20,7 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebApi\RpgAdventureGame.Backend.WebApi.csproj" />
+    <ProjectReference Include="..\WebApi\KrzaqRPG.Backend.WebApi.csproj" />
   </ItemGroup>
 
 </Project>
