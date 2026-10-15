@@ -13,17 +13,23 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob
     internal class DbEngineWorkerJobAccess(Db db) : IDbEngineWorkerJobAccess
     {
         public Task<DbEngineWorkerJob?> GetJobAsync(string name, CancellationToken cancellationToken = default)
-            => db.Jobs.AsNoTracking().FirstOrDefaultAsync(x => x.Name == name, cancellationToken);
+        {
+            return db.Jobs
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Name == name, cancellationToken);
+        }
 
         public Task UpdateJobParamsAsync(DbEngineWorkerJob config, CancellationToken cancellationToken = default)
-            => db.Jobs
-                .Where(x => x.Name == config.Name)
+        {
+            return db.Jobs
+                .Where(j => j.Name == config.Name)
                 .ExecuteUpdateAsync(update => update
-                    .SetProperty(x => x.ErrorCounter, config.ErrorCounter)
-                    .SetProperty(x => x.LastRunTimestamp, config.LastRunTimestamp)
-                    .SetProperty(x => x.LastSuccessfullRunTimestamp, config.LastSuccessfullRunTimestamp)
-                    .SetProperty(x => x.NextRunTimestamp, config.NextRunTimestamp)
+                    .SetProperty(j => j.ErrorCounter, config.ErrorCounter)
+                    .SetProperty(j => j.LastRunTimestamp, config.LastRunTimestamp)
+                    .SetProperty(j => j.LastSuccessfullRunTimestamp, config.LastSuccessfullRunTimestamp)
+                    .SetProperty(j => j.NextRunTimestamp, config.NextRunTimestamp)
                 , cancellationToken);
+        }
 
         public async Task LogJobEventAsync(int jobId, WorkerJobEventType type, string message, CancellationToken cancellationToken = default)
         {

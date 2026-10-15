@@ -12,40 +12,49 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.Area
 
     internal class DbAreaAccess(Db db) : IDbAreaAccess
     {
-        public async Task<bool> AreaExistsAsync(int areaId, CancellationToken cancellationToken = default)
-            => await db.Areas.AnyAsync(a => a.Id == areaId, cancellationToken);
-
-        public async Task<IReadOnlySet<DbArea>> ListAreasAsync(CancellationToken cancellationToken = default)
+        public Task<bool> AreaExistsAsync(
+            int areaId,
+            CancellationToken cancellationToken = default)
         {
-            var query = from a in db.Areas
-                        select new DbArea
-                        {
-                            Id = a.Id,
-                            Name = a.Name,
-                        };
-
-            return (await query.ToHashSetAsync(cancellationToken)).AsReadOnly();
+            return db.Areas.AnyAsync(a => a.Id == areaId, cancellationToken);
         }
 
-        public async Task<IReadOnlySet<DbPath>> ListAreaOutgoingPathsAsync(int areaId, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlySet<DbArea>> ListAreasAsync(
+            CancellationToken cancellationToken = default)
         {
-            var query = from p in db.Paths
-                        where p.StartAreaId == areaId
-                        select new DbPath
-                        {
-                            Id = p.Id,
-                            Name = p.Name,
-                            EndArea = new DbArea
-                            {
-                                Id = p.EndArea.Id,
-                                Name = p.EndArea.Name,
-                            },
-                            Distance = p.Distance,
-                            DangerLevel = p.DangerLevel,
-                            DangerProbability = p.DangerProbability,
-                        };
+            var result = await db.Areas
+                .Select(a => new DbArea
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                })
+                .ToHashSetAsync(cancellationToken);
 
-            return (await query.ToHashSetAsync(cancellationToken)).AsReadOnly();
+            return result.AsReadOnly();
+        }
+
+        public async Task<IReadOnlySet<DbPath>> ListAreaOutgoingPathsAsync(
+            int areaId,
+            CancellationToken cancellationToken = default)
+        {
+            var result = await db.Paths
+                .Where(p => p.StartAreaId == areaId)
+                .Select(p => new DbPath
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    EndArea = new DbArea
+                    {
+                        Id = p.EndArea.Id,
+                        Name = p.EndArea.Name,
+                    },
+                    Distance = p.Distance,
+                    DangerLevel = p.DangerLevel,
+                    DangerProbability = p.DangerProbability,
+                })
+                .ToHashSetAsync(cancellationToken);
+
+            return result.AsReadOnly();
         }
     }
 }

@@ -5,14 +5,11 @@ using KrzaqRPG.Backend.WebApi.Core.Errors;
 using KrzaqRPG.Backend.WebApi.Core.Extensions;
 using KrzaqRPG.Backend.WebApi.Services;
 
-namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.StartTravel
+namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.Begin
 {
-    public class CharacterStartTravelCommandValidator
-        : RequestValidator<CharacterStartTravelCommand>
+    public class BeginTravelCommandValidator : RequestValidator<BeginTravelCommand>
     {
-
-
-        public CharacterStartTravelCommandValidator(
+        public BeginTravelCommandValidator(
             IDbCharacterAccess characterAccess,
             ITravelService travelService)
         {

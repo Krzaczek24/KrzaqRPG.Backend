@@ -1,8 +1,8 @@
 ﻿using Krzaq.MediatR.Interfaces;
 
-namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.StartTravel
+namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.Begin
 {
-    public class CharacterStartTravelCommand : IRequest<CharacterStartTravelCommandResult>
+    public class BeginTravelCommand : IRequest<BeginTravelCommandResult>
     {
         public required int CharacterId { get; init; }
         public required IList<int> PathIds { get; init; }

@@ -6,15 +6,15 @@ using KrzaqRPG.Backend.Database.SQLite.Entities.Travel;
 using KrzaqRPG.Backend.WebApi.Core.Errors;
 using KrzaqRPG.Backend.WebApi.Core.Exceptions;
 
-namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.StartTravel
+namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.Begin
 {
-    public class CharacterStartTravelCommandHandler(
+    public class BeginTravelCommandHandler(
         IDbCharacterAccess characterAccess,
         IDbAreaAccess areaAccess,
         IDbTravelAccess travelAccess)
-        : IRequestHandler<CharacterStartTravelCommand, CharacterStartTravelCommandResult>
+        : IRequestHandler<BeginTravelCommand, BeginTravelCommandResult>
     {
-        public async ValueTask<CharacterStartTravelCommandResult> Handle(CharacterStartTravelCommand request, CancellationToken cancellationToken = default)
+        public async ValueTask<BeginTravelCommandResult> Handle(BeginTravelCommand request, CancellationToken cancellationToken = default)
         {
             var character = await characterAccess.GetCharacterAsync(request.CharacterId, cancellationToken);
             var currentArea = character!.CurrentArea ?? throw new ConflictException(ErrorCode.CharacterOutsideArea);
