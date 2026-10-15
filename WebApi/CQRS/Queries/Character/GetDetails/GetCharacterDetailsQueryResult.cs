@@ -10,12 +10,12 @@ namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.GetDetails
         public required int Experience { get; init; }
         public required int CurrentHealth { get; init; }
         public required int MaxHealth { get; init; }
-        public required CharacterLocationDto? Location {  get; init; }
+        public required GetCharacterDetailsLocationDto? Location {  get; init; }
 
         public override string ToString() => $"({Id}) {Name} [{Level}] {{{Location?.Name}}}";
     }
 
-    public class CharacterLocationDto
+    public class GetCharacterDetailsLocationDto
     {
         public required CharacterLocationType Type { get; init; }
         public required int Id { get; init; }

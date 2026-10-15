@@ -63,8 +63,12 @@ namespace KrzaqRPG.Backend.WebApi.Core.Errors
         PathNotFound,
 
         // --- Travel ---
+        [HttpStatus(HttpStatusCode.NotFound)]
+        [Description("Travel not found")]
+        TravelNotFound,
+
         [HttpStatus(HttpStatusCode.Conflict)]
         [Description("Invalid travel paths has been found: [{0}]")]
-        InvalidTravelPaths
+        InvalidTravelPaths,
     }
 }

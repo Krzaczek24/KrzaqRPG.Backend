@@ -121,6 +121,7 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.Character
                     .SetProperty(c => c.CurrentAreaId, areaId)
                     .SetProperty(c => c.CurrentPathId, pathId)
                 , cancellationToken);
+
             return affectedRows > 0;
         }
     }

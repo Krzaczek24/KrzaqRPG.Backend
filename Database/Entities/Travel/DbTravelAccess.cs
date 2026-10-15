@@ -9,6 +9,7 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.Travel
 {
     public interface IDbTravelAccess
     {
+        Task<IReadOnlyCollection<DbPath>> GetPathsAsync(IList<int> pathIds, CancellationToken cancellationToken = default);
         Task<DbTravel?> GetTravelAsync(int travelId, CancellationToken cancellationToken = default);
         Task<IReadOnlyCollection<DbTravel>> GetAllOngoingTravelsAsync(CancellationToken cancellationToken = default);
         Task<bool> PathExistsAsync(int pathId, CancellationToken cancellationToken = default);
@@ -18,12 +19,37 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.Travel
 
     internal class DbTravelAccess(Db db) : IDbTravelAccess
     {
+        public async Task<IReadOnlyCollection<DbPath>> GetPathsAsync(IList<int> pathIds, CancellationToken cancellationToken = default)
+        {
+            var paths = await db.Paths
+                .Where(p => pathIds.Contains(p.Id))
+                .Select(p => new DbPath
+                {
+                    Id = p.Id,
+                    Distance = p.Id,
+                    StartAreaId = p.StartAreaId,
+                    EndArea = new DbArea
+                    {
+                        Id = p.EndArea.Id,
+                        Name = p.EndArea.Name,
+                    },
+                    DangerLevel = p.DangerLevel,
+                    DangerProbability = p.DangerProbability,
+                })
+                .ToListAsync(cancellationToken);
+
+            var orderedItems = pathIds
+                .Join(paths, id => id, p => p.Id, (id, item) => item)
+                .ToList();
+
+            return orderedItems.AsReadOnly();
+        }
+
         public Task<DbTravel?> GetTravelAsync(int travelId, CancellationToken cancellationToken = default)
         {
             return db.Travels
                 .Select(t => new DbTravel
                 {
-                    Id = t.Id,
                     Character = new DbCharacter
                     {
                         Id = t.Character.Id,
@@ -41,16 +67,13 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.Travel
                     },
                     TravelPaths = t.TravelPaths.Select(tp => new DbTravelPath
                     {
-                        Id = tp.Id,
                         Path = new DbPath
                         {
-                            Id = tp.Path.Id,
-                            Name = tp.Path.Name,
                             Distance = tp.Path.Distance,
                             DangerLevel = tp.Path.DangerLevel,
                             DangerProbability = tp.Path.DangerProbability,
                         }
-                    }).ToList(),
+                    }).OrderBy(tp => tp.Sequence).ToList(),
                     Completed = t.Completed,
                     StartTimestamp = t.StartTimestamp,
                 })
@@ -62,6 +85,7 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.Travel
             var travels = await db.Travels
                 .Where(t => !t.Completed)
                 .ToHashSetAsync(cancellationToken);
+
             return travels.AsReadOnly();
         }
 
