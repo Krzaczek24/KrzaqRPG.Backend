@@ -29,6 +29,14 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.TravelPath
             builder.HasOne(x => x.Path)
                 .WithMany()
                 .HasForeignKey(x => x.PathId);
+
+            builder.Property(x => x.PathTravelTime)
+                .HasColumnName("PathTravelTime")
+                .IsRequired();
+
+            builder.Property(x => x.AreaTravelTime)
+                .HasColumnName("AreaTravelTime")
+                .IsRequired();
         }
     }
 }

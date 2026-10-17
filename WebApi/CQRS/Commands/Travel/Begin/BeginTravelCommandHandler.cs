@@ -2,16 +2,16 @@
 using KrzaqRPG.Backend.Database.SQLite.Entities.Area;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Path;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Travel;
 using KrzaqRPG.Backend.WebApi.Core.Errors;
 using KrzaqRPG.Backend.WebApi.Core.Exceptions;
+using KrzaqRPG.Backend.WebApi.Services;
 
 namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.Begin
 {
     public class BeginTravelCommandHandler(
         IDbCharacterAccess characterAccess,
         IDbAreaAccess areaAccess,
-        IDbTravelAccess travelAccess)
+        ITravelService travelService)
         : IRequestHandler<BeginTravelCommand, BeginTravelCommandResult>
     {
         public async ValueTask<BeginTravelCommandResult> Handle(BeginTravelCommand request, CancellationToken cancellationToken = default)
@@ -28,7 +28,7 @@ namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.Begin
                     availablePaths = await GetAvailablePaths();
             }
 
-            int id = await travelAccess.RegisterTravelAsync(character.Id, request.PathIds, cancellationToken);
+            int id = await travelService.RegisterTravelAsync(character.Id, request.PathIds, cancellationToken);
 
             return new() { Id = id };
 

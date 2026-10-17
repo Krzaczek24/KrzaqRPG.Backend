@@ -1,6 +1,7 @@
 ﻿using Krzaq.MediatR.Implementations;
 using KrzaqRPG.Backend.WebApi.Core.Controllers;
 using KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.Begin;
+using KrzaqRPG.Backend.WebApi.CQRS.Queries.Travel.GetDetails;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KrzaqRPG.Backend.WebApi.Controllers
@@ -20,7 +21,7 @@ namespace KrzaqRPG.Backend.WebApi.Controllers
             [FromRoute] int id,
             CancellationToken cancellationToken)
         {
-            return Ok(await mediator.Send(new GetTravelDetailsQuery { Id = id }, cancellationToken));
+            return Ok(await mediator.Send(new GetTravelDetailsQuery { TravelId = id }, cancellationToken));
         }
     }
 }

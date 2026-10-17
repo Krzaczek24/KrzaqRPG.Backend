@@ -2,8 +2,10 @@
 using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
 using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
 using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobEvent;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Parameter;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Path;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Travel;
+using KrzaqRPG.Backend.Database.SQLite.Entities.TravelTime;
 using Microsoft.EntityFrameworkCore;
 
 namespace KrzaqRPG.Backend.Database.SQLite
@@ -12,10 +14,14 @@ namespace KrzaqRPG.Backend.Database.SQLite
     {
         internal virtual DbSet<DbArea> Areas { get; set; }
         internal virtual DbSet<DbCharacter> Characters { get; set; }
-        internal virtual DbSet<DbPath> Paths { get; set; }
-        internal virtual DbSet<DbTravel> Travels { get; set; }
         internal virtual DbSet<DbEngineWorkerJob> Jobs { get; set; }
         internal virtual DbSet<DbEngineWorkerJobEvent> JobEvents { get; set; }
+        internal virtual DbSet<DbParameter> Parameters { get; set; }
+        internal virtual DbSet<DbPath> Paths { get; set; }
+        internal virtual DbSet<DbTravel> Travels { get; set; }
+        internal virtual DbSet<DbTravelTimeFactorAreaType> TravelTimeFactorAreaTypes { get; set; }
+        internal virtual DbSet<DbTravelTimeFactorPathEnvironment> TravelTimeFactorPathEnvironments { get; set; }
+        internal virtual DbSet<DbTravelTimeFactorPathType> TravelTimeFactorPathTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

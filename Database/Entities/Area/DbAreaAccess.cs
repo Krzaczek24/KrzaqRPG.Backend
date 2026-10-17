@@ -27,6 +27,7 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.Area
                 {
                     Id = a.Id,
                     Name = a.Name,
+                    Type = a.Type,
                 })
                 .ToHashSetAsync(cancellationToken);
 
@@ -47,10 +48,13 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.Area
                     {
                         Id = p.EndArea.Id,
                         Name = p.EndArea.Name,
+                        Type = p.EndArea.Type,
                     },
                     Distance = p.Distance,
                     DangerLevel = p.DangerLevel,
                     DangerProbability = p.DangerProbability,
+                    Type = p.Type,
+                    Environment = p.Environment,
                 })
                 .ToHashSetAsync(cancellationToken);
 

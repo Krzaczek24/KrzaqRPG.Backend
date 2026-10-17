@@ -11,5 +11,7 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.TravelPath
         public virtual int Sequence { get; set; }
         public virtual int PathId { get; set; }
         public virtual DbPath Path { get; set; }
+        public virtual TimeSpan PathTravelTime { get; set; }
+        public virtual TimeSpan AreaTravelTime { get; set; }
     }
 }

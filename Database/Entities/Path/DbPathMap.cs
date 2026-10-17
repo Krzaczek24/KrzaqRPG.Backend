@@ -42,6 +42,14 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.Path
                 .HasColumnName("DangerProbability")
                 .IsRequired();
 
+            builder.Property(x => x.Type)
+                .HasColumnName("PathType")
+                .IsRequired();
+
+            builder.Property(x => x.Environment)
+                .HasColumnName("EnvironmentType")
+                .IsRequired();
+
             builder.HasMany(x => x.Characters)
                 .WithOne(c => c.CurrentPath)
                 .HasForeignKey(c => c.CurrentPathId);

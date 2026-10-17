@@ -11,7 +11,6 @@ namespace KrzaqRPG.Backend.Database.SQLite.Base
         protected virtual string TableName { get; } = typeof(TDbTable).Name
             .TrimPrefix("Db", ignoreCase: true)
             .TrimSuffix("Table", ignoreCase: true);
-            //.ToSnakeCase();
 
         public virtual void Configure(EntityTypeBuilder<TDbTable> builder)
         {
