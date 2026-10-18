@@ -12,7 +12,7 @@ public class CreateCharacterCommandValidator : RequestValidator<CreateCharacterC
     {
         RuleFor(x => x.Name)
             .NotEmpty()
-            .MustAsync(async (name, ct) => !await characterAccess.IsCharacterNameUsedAsync(name, ct))
+            .MustAsync(async (name, cancellationToken) => !await characterAccess.IsCharacterNameUsedAsync(name, cancellationToken))
                 .WithErrorCode(ErrorCode.NameAlreadyInUse);
     }
 }

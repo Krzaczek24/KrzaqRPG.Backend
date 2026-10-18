@@ -10,32 +10,28 @@ internal class DbTravelPathMap : DbTableMap<DbTravelPath>
     {
         base.Configure(builder);
 
-        builder.Property(x => x.TravelId)
+        builder.Property(tp => tp.TravelId)
             .HasColumnName("TravelId")
             .IsRequired();
 
-        builder.HasOne(x => x.Travel)
-            .WithMany(x => x.TravelPaths)
-            .HasForeignKey(x => x.TravelId);
+        builder.HasOne(tp => tp.Travel)
+            .WithMany(t => t.Paths)
+            .HasForeignKey(tp => tp.TravelId);
 
-        builder.Property(x => x.Sequence)
+        builder.Property(tp => tp.Sequence)
             .HasColumnName("Sequence")
             .IsRequired();
 
-        builder.Property(x => x.PathId)
+        builder.Property(tp => tp.PathId)
             .HasColumnName("PathId")
             .IsRequired();
 
-        builder.HasOne(x => x.Path)
+        builder.HasOne(tp => tp.Path)
             .WithMany()
-            .HasForeignKey(x => x.PathId);
+            .HasForeignKey(tp => tp.PathId);
 
-        builder.Property(x => x.TravelTime)
-            .HasColumnName("PathTravelTime")
-            .IsRequired();
-
-        builder.Property(x => x.AreaTravelTime)
-            .HasColumnName("AreaTravelTime")
+        builder.Property(tp => tp.TravelTime)
+            .HasColumnName("TravelTime")
             .IsRequired();
     }
 }

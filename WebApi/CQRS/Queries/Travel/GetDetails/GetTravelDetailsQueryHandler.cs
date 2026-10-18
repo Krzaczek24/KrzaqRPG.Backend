@@ -13,14 +13,14 @@ public class GetTravelDetailsQueryHandler(ITravelService travelService) : IReque
         var travel = await travelService.GetTravelAsync(request.TravelId, cancellationToken)
             ?? throw new NotFoundException(ErrorCode.TravelNotFound);
 
-        var paths = travel.TravelPaths.Select(tp => new GetTravelDetailsPathDto
+        var paths = travel.Paths.Select(tp => new GetTravelDetailsPathDto
         {
+            Id = tp.Path.Id,
             Name = tp.Path.Name,
             Distance = tp.Path.Distance,
             DangerLevel = tp.Path.DangerLevel,
             DangerProbability = tp.Path.DangerProbability,
-            AreaTravelTime = tp.AreaTravelTime,
-            PathTravelTime = tp.TravelTime,
+            TravelTime = tp.TravelTime,
         }).ToList();
 
         var response = new GetTravelDetailsQueryResult
@@ -49,7 +49,8 @@ public class GetTravelDetailsQueryHandler(ITravelService travelService) : IReque
             Paths = paths.AsReadOnly(),
             IsCompleted = travel.Completed,
             StartTimestamp = travel.StartTimestamp,
-            TotalTravelTime = paths.Aggregate(TimeSpan.Zero, (sum, next) => sum += next.PathTravelTime + next.AreaTravelTime),
+            TotalDistance = paths.Sum(p => p.Distance),
+            TotalTravelTime = paths.Aggregate(TimeSpan.Zero, (sum, next) => sum += next.TravelTime),
         };
 
         return response;

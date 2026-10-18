@@ -6,6 +6,7 @@ using KrzaqRPG.Backend.Database.SQLite.Entities.Parameters;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Paths;
 using KrzaqRPG.Backend.Database.SQLite.Entities.PathTravelTimeFactors.Environment;
 using KrzaqRPG.Backend.Database.SQLite.Entities.PathTravelTimeFactors.Type;
+using KrzaqRPG.Backend.Database.SQLite.Entities.TravelEvents;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Travels;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ public class Db(DbContextOptions<Db> options) : DbContext(options)
 {
     internal virtual DbSet<DbArea> Areas { get; set; }
     internal virtual DbSet<DbCharacter> Characters { get; set; }
+    internal virtual DbSet<DbTravelEvent> TravelEvents { get; set; }
     internal virtual DbSet<DbEngineWorkerJob> Jobs { get; set; }
     internal virtual DbSet<DbEngineWorkerJobEvent> JobEvents { get; set; }
     internal virtual DbSet<DbParameter> Parameters { get; set; }

@@ -13,7 +13,7 @@ internal class DbPathTypeTravelTimeFactorMap : DbTableMap<DbPathTypeTravelTimeFa
 
         builder.Property(x => x.Name)
             .HasColumnName("Name")
-            .HasBooleanConversion()
+            .HasEnumConversion()
             .IsRequired();
 
         builder.Property(x => x.Multiplier)

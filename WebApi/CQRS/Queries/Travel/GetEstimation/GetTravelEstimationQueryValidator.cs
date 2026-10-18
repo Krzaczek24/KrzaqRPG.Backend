@@ -15,14 +15,14 @@ public class GetTravelEstimationQueryValidator : RequestValidator<GetTravelEstim
     {
         RuleFor(x => x.CharacterId)
             .NotEmpty()
-            .MustAsync(async (id, ct) => await characterAccess.CharacterExistsAsync(id, ct))
+            .MustAsync(async (id, cancellationToken) => await characterAccess.CharacterExistsAsync(id, cancellationToken))
                 .WithErrorCode(ErrorCode.CharacterNotFound)
             .DependentRules(() => {
                 RuleFor(x => x.PathIds)
                     .NotEmpty()
-                    .MustAsync(async (query, ids, context, ct) =>
+                    .MustAsync(async (query, ids, context, cancellationToken) =>
                     {
-                        var invalidPathIds = await travelService.GetInvalidTravelPathsAsync(ids, ct);
+                        var invalidPathIds = await travelService.GetInvalidTravelPathsAsync(ids, cancellationToken);
                         if (invalidPathIds.Count == 0)
                             return true;
 

@@ -1,5 +1,4 @@
 ﻿using KrzaqRPG.Backend.Database.SQLite.Core;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Travels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -3,6 +3,7 @@
 public class GetTravelEstimationQueryResult
 {
     public required IReadOnlyList<GetTravelEstimationPathDto> Paths { get; set; }
+    public required decimal TotalDistance { get; set; }
     public required TimeSpan TotalTravelTime { get; set; }
 }
 

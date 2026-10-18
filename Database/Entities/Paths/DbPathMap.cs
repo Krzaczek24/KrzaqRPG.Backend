@@ -45,12 +45,12 @@ internal class DbPathMap : DbTableMap<DbPath>
 
         builder.Property(x => x.Type)
             .HasColumnName("Type")
-            .HasBooleanConversion()
+            .HasEnumConversion()
             .IsRequired();
 
         builder.Property(x => x.Environment)
             .HasColumnName("Environment")
-            .HasBooleanConversion()
+            .HasEnumConversion()
             .IsRequired();
 
         builder.HasMany(x => x.Characters)

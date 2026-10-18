@@ -5,21 +5,21 @@ namespace KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobs;
 
 public interface IDbEngineWorkerJobAccess
 {
-    Task<DbEngineWorkerJob?> GetJobAsync(string name, CancellationToken cancellationToken = default);
-    Task UpdateJobParamsAsync(DbEngineWorkerJob config, CancellationToken cancellationToken = default);
-    Task LogJobEventAsync(int jobId, WorkerJobEventType type, string message, CancellationToken cancellationToken = default);
+    Task<DbEngineWorkerJob?> GetJobAsync(string name, CancellationToken ct = default);
+    Task UpdateJobParamsAsync(DbEngineWorkerJob config, CancellationToken ct = default);
+    Task LogJobEventAsync(int jobId, WorkerJobEventType type, string message, CancellationToken ct = default);
 }
 
 internal class DbEngineWorkerJobAccess(Db db) : IDbEngineWorkerJobAccess
 {
-    public Task<DbEngineWorkerJob?> GetJobAsync(string name, CancellationToken cancellationToken = default)
+    public Task<DbEngineWorkerJob?> GetJobAsync(string name, CancellationToken ct = default)
     {
         return db.Jobs
             .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Name == name, cancellationToken);
+            .FirstOrDefaultAsync(x => x.Name == name, ct);
     }
 
-    public Task UpdateJobParamsAsync(DbEngineWorkerJob config, CancellationToken cancellationToken = default)
+    public Task UpdateJobParamsAsync(DbEngineWorkerJob config, CancellationToken ct = default)
     {
         return db.Jobs
             .Where(j => j.Name == config.Name)
@@ -28,10 +28,10 @@ internal class DbEngineWorkerJobAccess(Db db) : IDbEngineWorkerJobAccess
                 .SetProperty(j => j.LastRunTimestamp, config.LastRunTimestamp)
                 .SetProperty(j => j.LastSuccessfullRunTimestamp, config.LastSuccessfullRunTimestamp)
                 .SetProperty(j => j.NextRunTimestamp, config.NextRunTimestamp)
-            , cancellationToken);
+            , ct);
     }
 
-    public async Task LogJobEventAsync(int jobId, WorkerJobEventType type, string message, CancellationToken cancellationToken = default)
+    public async Task LogJobEventAsync(int jobId, WorkerJobEventType type, string message, CancellationToken ct = default)
     {
         await db.JobEvents.AddAsync(new()
         {
@@ -39,6 +39,6 @@ internal class DbEngineWorkerJobAccess(Db db) : IDbEngineWorkerJobAccess
             Type = type,
             Timestamp = DateTime.Now,
             Message = message,
-        }, cancellationToken);
+        }, ct);
     }
 }

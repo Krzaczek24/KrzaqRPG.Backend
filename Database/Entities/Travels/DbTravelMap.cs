@@ -10,24 +10,29 @@ internal class DbTravelMap : DbTableMap<DbTravel>
     {
         base.Configure(builder);
 
-        builder.Property(x => x.CharacterId)
+        builder.Property(t => t.CharacterId)
             .HasColumnName("CharacterId")
             .IsRequired();
 
-        builder.HasOne(x => x.Character)
+        builder.HasOne(t => t.Character)
             .WithMany()
-            .HasForeignKey(x => x.CharacterId)
+            .HasForeignKey(t => t.CharacterId)
             .IsRequired();
 
-        builder.Property(x => x.StartTimestamp)
+        builder.Property(t => t.StartTimestamp)
             .HasColumnName("StartTimestamp")
             .IsRequired();
 
-        builder.Property(x => x.Completed)
+        builder.Property(t => t.Completed)
             .HasColumnName("Completed");
 
-        builder.HasMany(x => x.TravelPaths)
+        builder.HasMany(t => t.Paths)
             .WithOne(tp => tp.Travel)
+            .HasForeignKey(tp => tp.TravelId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(t => t.Events)
+            .WithOne(e => e.Travel)
             .HasForeignKey(tp => tp.TravelId)
             .OnDelete(DeleteBehavior.Cascade);
     }

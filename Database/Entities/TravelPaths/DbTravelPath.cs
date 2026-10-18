@@ -12,5 +12,4 @@ public class DbTravelPath : DbTable
     public virtual int PathId { get; set; }
     public virtual DbPath Path { get; set; }
     public virtual TimeSpan TravelTime { get; set; }
-    public virtual TimeSpan AreaTravelTime { get; set; }
 }

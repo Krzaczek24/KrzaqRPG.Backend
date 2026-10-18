@@ -8,6 +8,7 @@ public class GetTravelDetailsQueryResult
     public required IReadOnlyList<GetTravelDetailsPathDto> Paths { get; set; }
     public required bool IsCompleted { get; set; }
     public required DateTime StartTimestamp { get; set; }
+    public required int TotalDistance { get; set; }
     public required TimeSpan TotalTravelTime { get; set; }
 }
 
@@ -29,10 +30,10 @@ public class GetTravelDetailsCharacterLocationDto
 
 public class GetTravelDetailsPathDto
 {
+    public required int Id { get; set; }
     public required string Name { get; set; }
-    public required decimal Distance { get; set; }
+    public required int Distance { get; set; }
     public required int DangerLevel { get; set; }
     public required decimal DangerProbability { get; set; }
-    public required TimeSpan PathTravelTime { get; set; }
-    public required TimeSpan AreaTravelTime { get; set; }
+    public required TimeSpan TravelTime { get; set; }
 }

@@ -19,15 +19,15 @@ public class SetCharacterLocationCommandValidator
     {
         RuleFor(x => x.CharacterId)
             .NotNull()
-            .MustAsync(async (id, ct) => await characterAccess.CharacterExistsAsync(id, ct))
+            .MustAsync(async (id, cancellationToken) => await characterAccess.CharacterExistsAsync(id, cancellationToken))
                 .WithErrorCode(ErrorCode.CharacterNotFound);
 
         RuleFor(x => x.LocationId)
             .NotNull()
-            .MustAsync(async (id, ct) => await areaAccess.AreaExistsAsync(id, ct))
+            .MustAsync(async (id, cancellationToken) => await areaAccess.AreaExistsAsync(id, cancellationToken))
                 .WithErrorCode(ErrorCode.AreaNotFound)
                 .When(x => x.LocationType is CharacterLocationType.Area, ApplyConditionTo.CurrentValidator)
-            .MustAsync(async (id, ct) => await travelAccess.PathExistsAsync(id, ct))
+            .MustAsync(async (id, cancellationToken) => await travelAccess.PathExistsAsync(id, cancellationToken))
                 .WithErrorCode(ErrorCode.PathNotFound)
                 .When(x => x.LocationType is CharacterLocationType.Path, ApplyConditionTo.CurrentValidator);
     }

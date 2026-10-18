@@ -17,16 +17,16 @@ public class BeginTravelCommandValidator : RequestValidator<BeginTravelCommand>
 
         RuleFor(x => x.CharacterId)
             .NotEmpty()
-            .MustAsync(async (id, ct) => await characterAccess.CharacterExistsAsync(id, ct))
+            .MustAsync(async (id, cancellationToken) => await characterAccess.CharacterExistsAsync(id, cancellationToken))
                 .WithErrorCode(ErrorCode.CharacterNotFound)
-            .MustAsync(async (id, ct) => !await characterAccess.IsCharacterTravelingAsync(id, ct))
+            .MustAsync(async (id, cancellationToken) => !await characterAccess.IsCharacterTravelingAsync(id, cancellationToken))
                 .WithErrorCode(ErrorCode.CharacterInTravel)
             .DependentRules(() => {
                 RuleFor(x => x.PathIds)
                     .NotEmpty()
-                    .MustAsync(async (command, ids, ct) => await characterAccess.IsCharacterOnPathBeginningAsync(command.CharacterId, ids[0], ct))
+                    .MustAsync(async (command, ids, cancellationToken) => await characterAccess.IsCharacterOnPathBeginningAsync(command.CharacterId, ids[0], cancellationToken))
                         .WithErrorCode(ErrorCode.CharacterNotInTravelStartingArea)
-                    .MustAsync(async (ids, ct) => (invalidPaths = await travelService.GetInvalidTravelPathsAsync(ids, ct)).Count == 0)
+                    .MustAsync(async (ids, cancellationToken) => (invalidPaths = await travelService.GetInvalidTravelPathsAsync(ids, cancellationToken)).Count == 0)
                         .WithErrorCode(ErrorCode.InvalidTravelPaths, string.Join(", ", invalidPaths));
             });
     }

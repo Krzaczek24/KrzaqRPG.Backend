@@ -1,5 +1,6 @@
 ﻿using Krzaq.MediatR.Implementations;
 using KrzaqRPG.Backend.WebApi.Core.Controllers;
+using KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.AddEvent;
 using KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.Begin;
 using KrzaqRPG.Backend.WebApi.CQRS.Queries.Travel.GetDetails;
 using KrzaqRPG.Backend.WebApi.CQRS.Queries.Travel.GetEstimation;
@@ -27,10 +28,23 @@ public class TravelsController(IMediator mediator) : ApiController
 
     [HttpGet("estimation")]
     [Obsolete("apply character modifiers paths to travel times")]
-    public async ValueTask<ActionResult> GetTravelEstimation(
+    public async ValueTask<ActionResult<GetTravelEstimationQueryResult>> GetTravelEstimation(
         [FromQuery] GetTravelEstimationQuery query,
         CancellationToken cancellationToken)
     {
         return Ok(await mediator.Send(query, cancellationToken));
+    }
+
+    [HttpPost("{id}/events")]
+    public async ValueTask<ActionResult<AddTravelEventCommandResult>> AddEvent(
+        [FromRoute] int id,
+        [FromBody] AddTravelEventCommand command,
+        CancellationToken cancellationToken)
+    {
+        return Created(await mediator.Send(command with
+        {
+            TravelId = id,
+            Timestamp = DateTime.Now,
+        }, cancellationToken));
     }
 }

@@ -17,7 +17,7 @@ internal class DbAreaMap : DbTableMap<DbArea>
 
         builder.Property(x => x.Type)
             .HasColumnName("Type")
-            .HasBooleanConversion()
+            .HasEnumConversion()
             .IsRequired();
 
         builder.HasMany(x => x.Characters)

@@ -29,6 +29,7 @@ public class GetTravelEstimationQueryHandler(
         var response = new GetTravelEstimationQueryResult
         {
             Paths = paths.AsReadOnly(),
+            TotalDistance = paths.Sum(p => p.Distance),
             TotalTravelTime = paths.Aggregate(TimeSpan.Zero, (sum, next) => sum += next.TravelTime),
         };
 

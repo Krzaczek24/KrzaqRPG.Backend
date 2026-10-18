@@ -11,12 +11,8 @@ public class SetCharacterLocationCommandHandler(IDbCharacterAccess characterAcce
     {
         switch (request.LocationType)
         {
-            case CharacterLocationType.Area:
-                await characterAccess.SetCharacterCurrentAreaAsync(request.CharacterId, request.LocationId, cancellationToken);
-                break;
-            case CharacterLocationType.Path:
-                await characterAccess.SetCharacterCurrentPathAsync(request.CharacterId, request.LocationId, cancellationToken);
-                break;
+            case CharacterLocationType.Area: await characterAccess.SetCharacterCurrentAreaAsync(request.CharacterId, request.LocationId, cancellationToken); break;
+            case CharacterLocationType.Path: await characterAccess.SetCharacterCurrentPathAsync(request.CharacterId, request.LocationId, cancellationToken); break;
         }
     }
 }

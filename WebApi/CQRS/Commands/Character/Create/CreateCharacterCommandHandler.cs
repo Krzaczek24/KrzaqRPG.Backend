@@ -3,7 +3,7 @@ using KrzaqRPG.Backend.Database.SQLite.Entities.Characters;
 
 namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.Create;
 
-public class CreateCharacterCommandHandler(IDbCharacterAccess characterAccess)
+internal class CreateCharacterCommandHandler(IDbCharacterAccess characterAccess)
     : IRequestHandler<CreateCharacterCommand, CreateCharacterCommandResult>
 {
     public async ValueTask<CreateCharacterCommandResult> Handle(CreateCharacterCommand request, CancellationToken cancellationToken = default)
