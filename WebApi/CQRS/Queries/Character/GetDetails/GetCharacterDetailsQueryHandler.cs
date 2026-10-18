@@ -1,6 +1,6 @@
 ﻿using Krzaq.MediatR.Interfaces;
 using KrzaqRPG.Backend.Common.Enums;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Characters;
 using KrzaqRPG.Backend.WebApi.Core.Errors;
 using KrzaqRPG.Backend.WebApi.Core.Exceptions;
 

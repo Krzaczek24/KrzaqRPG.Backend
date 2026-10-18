@@ -1,8 +1,8 @@
 ﻿using Krzaq.Extensions.IEnumerable;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Travel;
-using KrzaqRPG.Backend.Database.SQLite.Entities.TravelTime;
-using KrzaqRPG.Backend.Database.SQLite.Entities.TravelTime.Base;
-using KrzaqRPG.Backend.Database.SQLite.Enums;
+using KrzaqRPG.Backend.Common.Enums;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Travels;
+using KrzaqRPG.Backend.Database.SQLite.Entities.TravelTimes;
+using KrzaqRPG.Backend.Database.SQLite.Entities.TravelTimes.Base;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace KrzaqRPG.Backend.WebApi.Services
@@ -72,9 +72,9 @@ namespace KrzaqRPG.Backend.WebApi.Services
 
                 if (cache.TryGetValue(AreaBaseTravelTimeKey, out TimeSpan areaBaseTravelTime)
                 && cache.TryGetValue(DistConvFactorKey, out (TimeSpan Time, double Distance) distanceTimeConversionFactor)
-                && cache.TryGetValue(TTFAreaTypeKey, out IReadOnlyDictionary<DbAreaType, double>? areaTypeFactors)
-                && cache.TryGetValue(TTFPathTypeKey, out IReadOnlyDictionary<DbPathType, double>? pathTypeFactors)
-                && cache.TryGetValue(TTFPathEnvironmentKey, out IReadOnlyDictionary<DbPathEnvironment, double>? pathEnvironmentFactors))
+                && cache.TryGetValue(TTFAreaTypeKey, out IReadOnlyDictionary<AreaType, double>? areaTypeFactors)
+                && cache.TryGetValue(TTFPathTypeKey, out IReadOnlyDictionary<PathType, double>? pathTypeFactors)
+                && cache.TryGetValue(TTFPathEnvironmentKey, out IReadOnlyDictionary<PathEnvironment, double>? pathEnvironmentFactors))
                 {
                     return new(areaBaseTravelTime!, distanceTimeConversionFactor!, areaTypeFactors!, pathTypeFactors!, pathEnvironmentFactors!);
                 }
@@ -94,9 +94,9 @@ namespace KrzaqRPG.Backend.WebApi.Services
 
                 static void Split(
                     IEnumerable<DbTravelTimeFactorTable> tables,
-                    out IReadOnlyDictionary<DbAreaType, double> areaTypeMultipliers,
-                    out IReadOnlyDictionary<DbPathType, double> pathTypeMultipliers,
-                    out IReadOnlyDictionary<DbPathEnvironment, double> pathEnvironmentMultipliers)
+                    out IReadOnlyDictionary<AreaType, double> areaTypeMultipliers,
+                    out IReadOnlyDictionary<PathType, double> pathTypeMultipliers,
+                    out IReadOnlyDictionary<PathEnvironment, double> pathEnvironmentMultipliers)
                 {
                     areaTypeMultipliers = Convert(WhereTypeOf<DbTravelTimeFactorAreaType>(tables));
                     pathTypeMultipliers = Convert(WhereTypeOf<DbTravelTimeFactorPathType>(tables));
@@ -158,8 +158,8 @@ namespace KrzaqRPG.Backend.WebApi.Services
         private readonly record struct TravelTimeFactors(
             TimeSpan AreaBaseTravelTime,
             (TimeSpan Time, double Distance) PathDistanceToTravelTimeConversionFactor,
-            IReadOnlyDictionary<DbAreaType, double> AreaTypeFactors,
-            IReadOnlyDictionary<DbPathType, double> PathTypeFactors,
-            IReadOnlyDictionary<DbPathEnvironment, double> PathEnvironmentFactors);
+            IReadOnlyDictionary<AreaType, double> AreaTypeFactors,
+            IReadOnlyDictionary<PathType, double> PathTypeFactors,
+            IReadOnlyDictionary<PathEnvironment, double> PathEnvironmentFactors);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using KrzaqRPG.Backend.Common;
-using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobs;
 using KrzaqRPG.Backend.Engine.Core.Job;
 using KrzaqRPG.Backend.Engine.Core.Waiter.Interface;
 using Microsoft.Extensions.Caching.Memory;

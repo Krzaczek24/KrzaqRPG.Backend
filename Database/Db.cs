@@ -1,11 +1,11 @@
-﻿using KrzaqRPG.Backend.Database.SQLite.Entities.Area;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
-using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
-using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobEvent;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Parameter;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Path;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Travel;
-using KrzaqRPG.Backend.Database.SQLite.Entities.TravelTime;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.Areas;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Characters;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobEvents;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobs;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Parameters;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Paths;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Travels;
+using KrzaqRPG.Backend.Database.SQLite.Entities.TravelTimes;
 using Microsoft.EntityFrameworkCore;
 
 namespace KrzaqRPG.Backend.Database.SQLite

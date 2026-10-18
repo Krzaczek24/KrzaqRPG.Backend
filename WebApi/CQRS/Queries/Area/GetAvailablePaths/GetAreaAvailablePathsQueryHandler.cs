@@ -1,5 +1,5 @@
 ﻿using Krzaq.MediatR.Interfaces;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Area;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Areas;
 
 namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Area.GetAvailablePaths
 {

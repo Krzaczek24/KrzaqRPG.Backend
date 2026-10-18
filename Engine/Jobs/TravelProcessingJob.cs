@@ -1,4 +1,4 @@
-﻿using KrzaqRPG.Backend.Database.SQLite.Entities.Travel;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.Travels;
 using KrzaqRPG.Backend.Engine.Core.Job;
 
 namespace KrzaqRPG.Backend.Engine.Jobs

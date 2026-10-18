@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using Krzaq.MediatR.Implementations;
 using KrzaqRPG.Backend.Common.Enums;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Area;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Character;
-using KrzaqRPG.Backend.Database.SQLite.Entities.Travel;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Areas;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Characters;
+using KrzaqRPG.Backend.Database.SQLite.Entities.Travels;
 using KrzaqRPG.Backend.WebApi.Core.Errors;
 using KrzaqRPG.Backend.WebApi.Core.Extensions;
 

@@ -1,5 +1,5 @@
 ﻿using KrzaqRPG.Backend.Database.SQLite.Base;
-using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
+using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobs;
 using KrzaqRPG.Backend.Engine.Tests.IntegrationTests.Base;
 
 namespace KrzaqRPG.Backend.Engine.Tests.IntegrationTests

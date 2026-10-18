@@ -1,4 +1,4 @@
-﻿using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJob;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobs;
 using KrzaqRPG.Backend.Engine.Core.Job;
 using KrzaqRPG.Backend.Engine.Core.Waiter;
 using KrzaqRPG.Backend.Engine.Core.Worker.Base;
