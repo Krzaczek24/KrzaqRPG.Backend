@@ -1,7 +1,6 @@
-﻿namespace KrzaqRPG.Backend.Engine.Core.Job
+﻿namespace KrzaqRPG.Backend.Engine.Core.Job;
+
+public interface IJob
 {
-    public interface IJob
-    {
-        Task ExecuteAsync(IJobContext context, CancellationToken stoppingToken);
-    }
+    Task ExecuteAsync(IJobContext context, CancellationToken stoppingToken);
 }

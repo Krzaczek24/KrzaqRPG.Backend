@@ -7,29 +7,28 @@ using KrzaqRPG.Backend.Database.SQLite.Entities.Travels;
 using KrzaqRPG.Backend.WebApi.Core.Errors;
 using KrzaqRPG.Backend.WebApi.Core.Extensions;
 
-namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.SetLocation
-{
-    public class SetCharacterLocationCommandValidator
-         : RequestValidator<SetCharacterLocationCommand>
-    {
-        public SetCharacterLocationCommandValidator(
-            IDbAreaAccess areaAccess,
-            IDbCharacterAccess characterAccess,
-            IDbTravelAccess travelAccess)
-        {
-            RuleFor(x => x.CharacterId)
-                .NotNull()
-                .MustAsync(async (id, ct) => await characterAccess.CharacterExistsAsync(id, ct))
-                    .WithErrorCode(ErrorCode.CharacterNotFound);
+namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.SetLocation;
 
-            RuleFor(x => x.LocationId)
-                .NotNull()
-                .MustAsync(async (id, ct) => await areaAccess.AreaExistsAsync(id, ct))
-                    .WithErrorCode(ErrorCode.AreaNotFound)
-                    .When(x => x.LocationType is CharacterLocationType.Area, ApplyConditionTo.CurrentValidator)
-                .MustAsync(async (id, ct) => await travelAccess.PathExistsAsync(id, ct))
-                    .WithErrorCode(ErrorCode.PathNotFound)
-                    .When(x => x.LocationType is CharacterLocationType.Path, ApplyConditionTo.CurrentValidator);
-        }
+public class SetCharacterLocationCommandValidator
+     : RequestValidator<SetCharacterLocationCommand>
+{
+    public SetCharacterLocationCommandValidator(
+        IDbAreaAccess areaAccess,
+        IDbCharacterAccess characterAccess,
+        IDbTravelAccess travelAccess)
+    {
+        RuleFor(x => x.CharacterId)
+            .NotNull()
+            .MustAsync(async (id, ct) => await characterAccess.CharacterExistsAsync(id, ct))
+                .WithErrorCode(ErrorCode.CharacterNotFound);
+
+        RuleFor(x => x.LocationId)
+            .NotNull()
+            .MustAsync(async (id, ct) => await areaAccess.AreaExistsAsync(id, ct))
+                .WithErrorCode(ErrorCode.AreaNotFound)
+                .When(x => x.LocationType is CharacterLocationType.Area, ApplyConditionTo.CurrentValidator)
+            .MustAsync(async (id, ct) => await travelAccess.PathExistsAsync(id, ct))
+                .WithErrorCode(ErrorCode.PathNotFound)
+                .When(x => x.LocationType is CharacterLocationType.Path, ApplyConditionTo.CurrentValidator);
     }
 }

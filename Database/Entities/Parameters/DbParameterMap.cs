@@ -1,33 +1,32 @@
-﻿using KrzaqRPG.Backend.Database.SQLite.Base;
+﻿using KrzaqRPG.Backend.Database.SQLite.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace KrzaqRPG.Backend.Database.SQLite.Entities.Parameters
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.Parameters;
+
+internal class DbParameterMap : DbTableMap<DbParameter>
 {
-    internal class DbParameterMap : DbTableMap<DbParameter>
+    public override void Configure(EntityTypeBuilder<DbParameter> builder)
     {
-        public override void Configure(EntityTypeBuilder<DbParameter> builder)
-        {
-            base.Configure(builder);
+        base.Configure(builder);
 
-            builder.Property(x => x.Name)
-                .HasColumnName("Name")
-                .IsRequired();
+        builder.Property(x => x.Name)
+            .HasColumnName("Name")
+            .IsRequired();
 
-            builder.Property(x => x.String)
-                .HasColumnName("StringValue");
+        builder.Property(x => x.String)
+            .HasColumnName("StringValue");
 
-            builder.Property(x => x.DateTime)
-                .HasColumnName("DateTimeValue");
+        builder.Property(x => x.DateTime)
+            .HasColumnName("DateTimeValue");
 
-            builder.Property(x => x.TimeSpan)
-                .HasColumnName("TimeSpanValue");
+        builder.Property(x => x.TimeSpan)
+            .HasColumnName("TimeSpanValue");
 
-            builder.Property(x => x.Numeric)
-                .HasColumnName("NumericValue");
+        builder.Property(x => x.Numeric)
+            .HasColumnName("NumericValue");
 
-            builder.Property(x => x.Boolean)
-                .HasColumnName("BooleanValue");
-        }
+        builder.Property(x => x.Boolean)
+            .HasColumnName("BooleanValue");
     }
 }

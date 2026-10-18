@@ -1,11 +1,10 @@
-﻿namespace KrzaqRPG.Backend.Database.SQLite.Interfaces
+﻿namespace KrzaqRPG.Backend.Database.SQLite.Interfaces;
+
+public interface ISearchCharacterParams
 {
-    public interface ISearchCharacterParams
-    {
-        string? Name { get; }
-        ICollection<int> AreaIds { get; }
-        ICollection<int> PathIds { get; }
-        int? MinLevel { get; }
-        int? MaxLevel { get; }
-    }
+    string? Name { get; }
+    ICollection<int> AreaIds { get; }
+    ICollection<int> PathIds { get; }
+    int? MinLevel { get; }
+    int? MaxLevel { get; }
 }

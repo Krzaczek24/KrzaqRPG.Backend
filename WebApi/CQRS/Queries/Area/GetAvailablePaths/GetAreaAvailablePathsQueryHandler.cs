@@ -1,27 +1,26 @@
 ﻿using Krzaq.MediatR.Interfaces;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Areas;
 
-namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Area.GetAvailablePaths
+namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Area.GetAvailablePaths;
+
+public class GetAreaAvailablePathsQueryHandler(IDbAreaAccess areaAccess)
+    : IRequestHandler<GetAreaAvailablePathsQuery, GetAreaAvailablePathsQueryResult>
 {
-    public class GetAreaAvailablePathsQueryHandler(IDbAreaAccess areaAccess)
-        : IRequestHandler<GetAreaAvailablePathsQuery, GetAreaAvailablePathsQueryResult>
+    public async ValueTask<GetAreaAvailablePathsQueryResult> Handle(GetAreaAvailablePathsQuery request, CancellationToken cancellationToken = default)
     {
-        public async ValueTask<GetAreaAvailablePathsQueryResult> Handle(GetAreaAvailablePathsQuery request, CancellationToken cancellationToken = default)
+        var areaPaths = await areaAccess.ListAreaOutgoingPathsAsync(request.AreaId, cancellationToken);
+        return new()
         {
-            var areaPaths = await areaAccess.ListAreaOutgoingPathsAsync(request.AreaId, cancellationToken);
-            return new()
+            AvailablePaths = areaPaths.Select(path =>new AvailablePathDto
             {
-                AvailablePaths = areaPaths.Select(path =>new AvailablePathDto
+                Id = path.Id,
+                Name = path.Name,
+                TargetArea = new()
                 {
-                    Id = path.Id,
-                    Name = path.Name,
-                    TargetArea = new()
-                    {
-                        Id = path.EndArea.Id,
-                        Name = path.EndArea.Name,
-                    },
-                }).ToHashSet().AsReadOnly(),
-            };
-        }
+                    Id = path.EndArea.Id,
+                    Name = path.EndArea.Name,
+                },
+            }).ToHashSet().AsReadOnly(),
+        };
     }
 }

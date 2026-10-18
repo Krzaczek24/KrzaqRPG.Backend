@@ -6,29 +6,28 @@ using KrzaqRPG.Backend.Engine.Jobs;
 using NCrontab;
 using NLog.Extensions.Logging;
 
-namespace KrzaqRPG.Backend.Engine
+namespace KrzaqRPG.Backend.Engine;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            var builder = Host.CreateApplicationBuilder(args);
+        var builder = Host.CreateApplicationBuilder(args);
 
-            builder.Logging.AddNLog();
+        builder.Logging.AddNLog();
 
-            builder.Services.AddMemoryCache();
+        builder.Services.AddMemoryCache();
 
-            builder.Services.AddAppDatabase(EnvInfo.IsDebug ? new LoggerFactory([new NLogLoggerProvider()]) : null);
+        builder.Services.AddAppDatabase(EnvInfo.IsDebug ? new LoggerFactory([new NLogLoggerProvider()]) : null);
 
-            builder.Services.AddTransient(sp => new IntervalWaiter(TimeSpan.FromSeconds(1)));
-            builder.Services.AddTransient(sp => new ScheduleWaiter(CrontabSchedule.Parse("* * * * *")));
+        builder.Services.AddTransient(sp => new IntervalWaiter(TimeSpan.FromSeconds(1)));
+        builder.Services.AddTransient(sp => new ScheduleWaiter(CrontabSchedule.Parse("* * * * *")));
 
-            builder.Services.AddHostedService<ContinuousWorker<TravelProcessingJob>>();
-            builder.Services.AddHostedService<ScheduleWorker<MapEventSettingJob>>();
+        builder.Services.AddHostedService<ContinuousWorker<TravelProcessingJob>>();
+        builder.Services.AddHostedService<ScheduleWorker<MapEventSettingJob>>();
 
-            var app = builder.Build();
+        var app = builder.Build();
 
-            app.Run();
-        }
+        app.Run();
     }
 }

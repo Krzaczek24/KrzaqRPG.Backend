@@ -1,7 +1,6 @@
-﻿namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.Begin
+﻿namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Travel.Begin;
+
+public class BeginTravelCommandResult
 {
-    public class BeginTravelCommandResult
-    {
-        public required int Id { get; init; }
-    }
+    public required int Id { get; init; }
 }

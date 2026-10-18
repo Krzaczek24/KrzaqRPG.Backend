@@ -3,126 +3,140 @@ using KrzaqRPG.Backend.Database.SQLite.Entities.Paths;
 using KrzaqRPG.Backend.Database.SQLite.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace KrzaqRPG.Backend.Database.SQLite.Entities.Characters
+namespace KrzaqRPG.Backend.Database.SQLite.Entities.Characters;
+
+public interface IDbCharacterAccess
 {
-    public interface IDbCharacterAccess
+    Task<bool> CharacterExistsAsync(int characterId, CancellationToken cancellationToken = default);
+    Task<bool> IsCharacterNameUsedAsync(string characterName, CancellationToken cancellationToken = default);
+    Task<bool> IsCharacterTravelingAsync(int characterId, CancellationToken cancellationToken = default);
+    Task<bool> IsCharacterOnPathBeginningAsync(int characterId, int pathId, CancellationToken cancellationToken = default);
+    Task<int> CreateCharacterAsync(string characterName, CancellationToken cancellationToken = default);
+    Task<DbCharacter?> GetCharacterAsync(int characterId, CancellationToken cancellationToken = default);
+    Task<IReadOnlySet<DbCharacter>> SearchCharactersAsync(ISearchCharacterParams searchParams, CancellationToken cancellationToken = default);
+    Task<bool> SetCharacterCurrentAreaAsync(int characterId, int areaId, CancellationToken cancellationToken = default);
+    Task<bool> SetCharacterCurrentPathAsync(int characterId, int pathId, CancellationToken cancellationToken = default);
+}
+
+internal class DbCharacterAccess(Db db) : IDbCharacterAccess
+{
+    public Task<bool> CharacterExistsAsync(
+        int characterId,
+        CancellationToken cancellationToken = default)
     {
-        Task<bool> CharacterExistsAsync(int characterId, CancellationToken cancellationToken = default);
-        Task<bool> IsCharacterNameUsedAsync(string characterName, CancellationToken cancellationToken = default);
-        Task<bool> IsCharacterTravelingAsync(int characterId, CancellationToken cancellationToken = default);
-        Task<int> CreateCharacterAsync(string characterName, CancellationToken cancellationToken = default);
-        Task<DbCharacter?> GetCharacterAsync(int characterId, CancellationToken cancellationToken = default);
-        Task<IReadOnlySet<DbCharacter>> SearchCharactersAsync(ISearchCharacterParams searchParams, CancellationToken cancellationToken = default);
-        Task<bool> SetCharacterCurrentAreaAsync(int characterId, int areaId, CancellationToken cancellationToken = default);
-        Task<bool> SetCharacterCurrentPathAsync(int characterId, int pathId, CancellationToken cancellationToken = default);
+        return db.Characters.AnyAsync(c => c.Id == characterId, cancellationToken);
     }
 
-    internal class DbCharacterAccess(Db db) : IDbCharacterAccess
+    public Task<bool> IsCharacterNameUsedAsync(
+        string characterName,
+        CancellationToken cancellationToken = default)
     {
-        public Task<bool> CharacterExistsAsync(
-            int characterId,
-            CancellationToken cancellationToken = default)
-        {
-            return db.Characters.AnyAsync(c => c.Id == characterId, cancellationToken);
-        }
+        return db.Characters.AnyAsync(c => EF.Functions.Like(c.Name, characterName), cancellationToken);
+    }
 
-        public Task<bool> IsCharacterNameUsedAsync(
-            string characterName,
-            CancellationToken cancellationToken = default)
-        {
-            return db.Characters.AnyAsync(c => EF.Functions.Like(c.Name, characterName), cancellationToken);
-        }
+    public Task<bool> IsCharacterTravelingAsync(
+        int characterId,
+        CancellationToken cancellationToken = default)
+    {
+        return db.Characters.AnyAsync(c => c.Id == characterId && (c.CurrentTravel != null || c.CurrentTravel.Completed), cancellationToken);
+    }
 
-        public Task<bool> IsCharacterTravelingAsync(
-            int characterId,
-            CancellationToken cancellationToken = default)
-        {
-            return db.Characters.AnyAsync(c => c.Id == characterId && (c.CurrentTravel != null || c.CurrentTravel.Completed), cancellationToken);
-        }
+    public Task<bool> IsCharacterOnPathBeginningAsync(int characterId, int pathId, CancellationToken cancellationToken = default)
+    {
+        var characterSubquery = db.Characters.Where(c => c.Id == characterId);
+        var pathsSubquery = db.Paths.Where(p => p.Id == pathId);
+        return characterSubquery
+            .Join(pathsSubquery, c => c.CurrentAreaId, p => p.StartAreaId, (c, p) => 1)
+            .AnyAsync(cancellationToken);
+    }
 
-        public async Task<int> CreateCharacterAsync(
-            string characterName,
-            CancellationToken cancellationToken = default)
-        {
-            var character = new DbCharacter { Name = characterName };
+    public async Task<int> CreateCharacterAsync(
+        string characterName,
+        CancellationToken cancellationToken = default)
+    {
+        var character = new DbCharacter { Name = characterName };
 
-            await db.Characters.AddAsync(character, cancellationToken);
-            await db.SaveChangesAsync(cancellationToken);
+        await db.Characters.AddAsync(character, cancellationToken);
+        await db.SaveChangesAsync(cancellationToken);
 
-            return character.Id;
-        }
+        return character.Id;
+    }
 
-        public async Task<DbCharacter?> GetCharacterAsync(int characterId, CancellationToken cancellationToken = default)
-        {
-            var result = await db.Characters
-                .Select(c => new DbCharacter
+    public async Task<DbCharacter?> GetCharacterAsync(int characterId, CancellationToken cancellationToken = default)
+    {
+        var result = await db.Characters
+            .Select(c => new DbCharacter
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Level = c.Level,
+                Experience = c.Experience,
+                CurrentHealth = c.CurrentHealth,
+                MaxHealth = c.MaxHealth,
+                CurrentArea = c.CurrentArea == null ? null : new DbArea
                 {
-                    Id = c.Id,
-                    Name = c.Name,
-                    CurrentArea = c.CurrentArea == null ? null : new DbArea
-                    {
-                        Id = c.CurrentArea.Id,
-                        Name = c.CurrentArea.Name,
-                    },
-                    CurrentPath = c.CurrentPath == null ? null : new DbPath
-                    {
-                        Id = c.CurrentPath.Id,
-                        Name = c.CurrentPath.Name,
-                    },
-                })
-                .FirstOrDefaultAsync(c => c.Id == characterId, cancellationToken);
-
-            return result;
-        }
-
-        public async Task<IReadOnlySet<DbCharacter>> SearchCharactersAsync(ISearchCharacterParams searchParams, CancellationToken cancellationToken = default)
-        {
-            var result = await db.Characters
-                .Where(c => EF.Functions.Like(c.Name, $"%{searchParams.Name}%"))
-                .Where(c => searchParams.AreaIds.Count == 0 || (c.CurrentAreaId.HasValue && searchParams.AreaIds.Contains(c.CurrentAreaId.Value)))
-                .Where(c => searchParams.PathIds.Count == 0 || (c.CurrentPathId.HasValue && searchParams.PathIds.Contains(c.CurrentPathId.Value)))
-                .Where(c => searchParams.MinLevel == null || c.Level >= searchParams.MinLevel)
-                .Where(c => searchParams.MaxLevel == null || c.Level <= searchParams.MaxLevel)
-                .Select(c => new DbCharacter
+                    Id = c.CurrentArea.Id,
+                    Name = c.CurrentArea.Name,
+                },
+                CurrentPath = c.CurrentPath == null ? null : new DbPath
                 {
-                    Id = c.Id,
-                    Name = c.Name,
-                    CurrentArea = c.CurrentArea == null ? null : new DbArea
-                    {
-                        Id = c.CurrentArea.Id,
-                        Name = c.CurrentArea.Name,
-                    },
-                    CurrentPath = c.CurrentPath == null ? null : new DbPath
-                    {
-                        Id = c.CurrentPath.Id,
-                        Name = c.CurrentPath.Name,
-                    },
-                })
-                .ToHashSetAsync(cancellationToken);
+                    Id = c.CurrentPath.Id,
+                    Name = c.CurrentPath.Name,
+                },
+                CurrentTravelId = c.CurrentTravelId,
+            })
+            .FirstOrDefaultAsync(c => c.Id == characterId, cancellationToken);
 
-            return result.AsReadOnly();
-        }
+        return result;
+    }
 
-        public Task<bool> SetCharacterCurrentAreaAsync(int characterId, int areaId, CancellationToken cancellationToken = default)
-        {
-            return SetCurrentLocation(characterId, areaId, null, cancellationToken);
-        }
+    public async Task<IReadOnlySet<DbCharacter>> SearchCharactersAsync(ISearchCharacterParams searchParams, CancellationToken cancellationToken = default)
+    {
+        var result = await db.Characters
+            .Where(c => searchParams.Name == null || searchParams.Name.Length == 0 || EF.Functions.Like(c.Name, $"%{searchParams.Name}%"))
+            .Where(c => searchParams.AreaIds.Count == 0 || (c.CurrentAreaId.HasValue && searchParams.AreaIds.Contains(c.CurrentAreaId.Value)))
+            .Where(c => searchParams.PathIds.Count == 0 || (c.CurrentPathId.HasValue && searchParams.PathIds.Contains(c.CurrentPathId.Value)))
+            .Where(c => searchParams.MinLevel == null || c.Level >= searchParams.MinLevel)
+            .Where(c => searchParams.MaxLevel == null || c.Level <= searchParams.MaxLevel)
+            .Select(c => new DbCharacter
+            {
+                Id = c.Id,
+                Name = c.Name,
+                CurrentArea = c.CurrentArea == null ? null : new DbArea
+                {
+                    Id = c.CurrentArea.Id,
+                    Name = c.CurrentArea.Name,
+                },
+                CurrentPath = c.CurrentPath == null ? null : new DbPath
+                {
+                    Id = c.CurrentPath.Id,
+                    Name = c.CurrentPath.Name,
+                },
+            })
+            .ToHashSetAsync(cancellationToken);
 
-        public Task<bool> SetCharacterCurrentPathAsync(int characterId, int pathId, CancellationToken cancellationToken = default)
-        {
-            return SetCurrentLocation(characterId, null, pathId, cancellationToken);
-        }
+        return result.AsReadOnly();
+    }
 
-        private async Task<bool> SetCurrentLocation(int characterId, int? areaId, int? pathId, CancellationToken cancellationToken = default)
-        {
-            int affectedRows = await db.Characters
-                .Where(c => c.Id == characterId)
-                .ExecuteUpdateAsync(x => x
-                    .SetProperty(c => c.CurrentAreaId, areaId)
-                    .SetProperty(c => c.CurrentPathId, pathId)
-                , cancellationToken);
+    public Task<bool> SetCharacterCurrentAreaAsync(int characterId, int areaId, CancellationToken cancellationToken = default)
+    {
+        return SetCurrentLocation(characterId, areaId, null, cancellationToken);
+    }
 
-            return affectedRows > 0;
-        }
+    public Task<bool> SetCharacterCurrentPathAsync(int characterId, int pathId, CancellationToken cancellationToken = default)
+    {
+        return SetCurrentLocation(characterId, null, pathId, cancellationToken);
+    }
+
+    private async Task<bool> SetCurrentLocation(int characterId, int? areaId, int? pathId, CancellationToken cancellationToken = default)
+    {
+        int affectedRows = await db.Characters
+            .Where(c => c.Id == characterId)
+            .ExecuteUpdateAsync(x => x
+                .SetProperty(c => c.CurrentAreaId, areaId)
+                .SetProperty(c => c.CurrentPathId, pathId)
+            , cancellationToken);
+
+        return affectedRows > 0;
     }
 }

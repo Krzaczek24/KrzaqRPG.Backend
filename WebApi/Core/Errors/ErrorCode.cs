@@ -3,72 +3,76 @@ using Krzaq.Attributes.HttpStatus;
 using System.ComponentModel;
 using System.Net;
 
-namespace KrzaqRPG.Backend.WebApi.Core.Errors
+namespace KrzaqRPG.Backend.WebApi.Core.Errors;
+
+[EnumToString(NameAlterMode.ToUpperSnake)]
+public enum ErrorCode
 {
-    [EnumToString(NameAlterMode.ToUpperSnake)]
-    public enum ErrorCode
-    {
-        // +-------------+
-        // |   GENERAL   |
-        // +-------------+
-        [HttpStatus(HttpStatusCode.InternalServerError)]
-        [Description("An unknown error occurred")]
-        Unknown,
+    // +-------------+
+    // |   GENERAL   |
+    // +-------------+
+    [HttpStatus(HttpStatusCode.InternalServerError)]
+    [Description("An unknown error occurred")]
+    Unknown,
 
-        // +-------------------+
-        // |   AUTHORIZATION   |
-        // +-------------------+
-        [HttpStatus(HttpStatusCode.Unauthorized)]
-        [Description("Failed to authorize")]
-        Unauthorized,
-        [HttpStatus(HttpStatusCode.Forbidden)]
-        [Description("Forbidden")]
-        Forbidden,
-        [HttpStatus(HttpStatusCode.Unauthorized)]
-        [Description("Token expired")]
-        TokenExpired,
-        [HttpStatus(HttpStatusCode.Unauthorized)]
-        [Description("Invalid token")]
-        InvalidToken,
-        [HttpStatus(HttpStatusCode.Conflict)]
-        [Description("Token already exists")]
-        TokenExists,
+    // +-------------------+
+    // |   AUTHORIZATION   |
+    // +-------------------+
+    [HttpStatus(HttpStatusCode.Unauthorized)]
+    [Description("Failed to authorize")]
+    Unauthorized,
+    [HttpStatus(HttpStatusCode.Forbidden)]
+    [Description("Forbidden")]
+    Forbidden,
+    [HttpStatus(HttpStatusCode.Unauthorized)]
+    [Description("Token expired")]
+    TokenExpired,
+    [HttpStatus(HttpStatusCode.Unauthorized)]
+    [Description("Invalid token")]
+    InvalidToken,
+    [HttpStatus(HttpStatusCode.Conflict)]
+    [Description("Token already exists")]
+    TokenExists,
 
-        // +----------------+
-        // |   GAME LOGIC   |
-        // +----------------+
+    // +----------------+
+    // |   GAME LOGIC   |
+    // +----------------+
 
-        // --- Character ---
-        [HttpStatus(HttpStatusCode.Conflict)]
-        [Description("Name is already in use")]
-        NameAlreadyInUse,
-        [HttpStatus(HttpStatusCode.NotFound)]
-        [Description("Character not found")]
-        CharacterNotFound,
-        [HttpStatus(HttpStatusCode.Conflict)]
-        [Description("Character is currently traveling")]
-        CharacterInTravel,
-        [HttpStatus(HttpStatusCode.Conflict)]
-        [Description("Character is outside any area")]
-        CharacterOutsideArea,
+    // --- Character ---
+    [HttpStatus(HttpStatusCode.Conflict)]
+    [Description("Name is already in use")]
+    NameAlreadyInUse,
+    [HttpStatus(HttpStatusCode.NotFound)]
+    [Description("Character not found")]
+    CharacterNotFound,
+    [HttpStatus(HttpStatusCode.Conflict)]
+    [Description("Character is currently traveling")]
+    CharacterInTravel,
+    [HttpStatus(HttpStatusCode.Conflict)]
+    [Description("Character is not in travel starting area")]
+    CharacterNotInTravelStartingArea,
 
-        // --- Area ---
-        [HttpStatus(HttpStatusCode.NotFound)]
-        [Description("Area not found")]
-        AreaNotFound,
+    // --- Area ---
+    [HttpStatus(HttpStatusCode.NotFound)]
+    [Description("Area not found")]
+    AreaNotFound,
 
-        // --- Path ---
-        [HttpStatus(HttpStatusCode.NotFound)]
-        [Description("Path not found")]
-        PathNotFound,
+    // --- Path ---
+    [HttpStatus(HttpStatusCode.NotFound)]
+    [Description("Path not found")]
+    PathNotFound,
 
-        // --- Travel ---
-        [HttpStatus(HttpStatusCode.NotFound)]
-        [Description("Travel not found")]
-        TravelNotFound,
+    // --- Travel ---
+    [HttpStatus(HttpStatusCode.NotFound)]
+    [Description("Travel not found")]
+    TravelNotFound,
 
-        [HttpStatus(HttpStatusCode.Conflict)]
-        [Description("Invalid travel paths has been found: [{0}]")]
-        InvalidTravelPaths,
-    }
+    [HttpStatus(HttpStatusCode.Conflict)]
+    [Description($"Invalid travel paths has been found: [{{{ErrorParams.InvalidPathIds}}}]")]
+    InvalidTravelPaths,
+}
+
+internal static class ErrorParams
+{
+    public const string InvalidPathIds = "InvalidPaths";
 }

@@ -1,10 +1,9 @@
-﻿namespace KrzaqRPG.WebApi.Tests.UnitTests
+﻿namespace KrzaqRPG.WebApi.Tests.UnitTests;
+
+public class Tests
 {
-    public class Tests
+    [SetUp]
+    public void Setup()
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
     }
 }

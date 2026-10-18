@@ -1,8 +1,7 @@
-﻿namespace KrzaqRPG.Backend.Common.Enums
+﻿namespace KrzaqRPG.Backend.Common.Enums;
+
+public enum CharacterLocationType
 {
-    public enum CharacterLocationType
-    {
-        Area,
-        Path,
-    }
+    Area,
+    Path,
 }

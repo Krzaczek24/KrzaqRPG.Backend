@@ -1,18 +1,17 @@
-﻿namespace KrzaqRPG.Backend.Common.Enums
+﻿namespace KrzaqRPG.Backend.Common.Enums;
+
+public enum AreaType
 {
-    public enum AreaType
-    {
-        Caverns,
-        City,
-        Dungeon,
-        Encampment,
-        Forest,
-        Meadows,
-        Mines,
-        Ruins,
-        Tavern,
-        Town,
-        Village,
-        Woods,
-    }
+    Caverns,
+    City,
+    Dungeon,
+    Encampment,
+    Forest,
+    Meadows,
+    Mines,
+    Ruins,
+    Tavern,
+    Town,
+    Village,
+    Woods,
 }

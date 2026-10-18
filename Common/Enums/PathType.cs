@@ -1,9 +1,8 @@
-﻿namespace KrzaqRPG.Backend.Common.Enums
+﻿namespace KrzaqRPG.Backend.Common.Enums;
+
+public enum PathType
 {
-    public enum PathType
-    {
-        Road,
-        Sail,
-        Wilderness,
-    }
+    Road,
+    Sail,
+    Wilderness,
 }

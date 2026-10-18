@@ -1,26 +1,26 @@
 ﻿using KrzaqRPG.Backend.Common.Enums;
 
-namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.GetDetails
+namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Character.GetDetails;
+
+public class GetCharacterDetailsQueryResult
 {
-    public class GetCharacterDetailsQueryResult
-    {
-        public required int Id { get; init; }
-        public required string Name { get; init; }
-        public required int Level { get; init; }
-        public required int Experience { get; init; }
-        public required int CurrentHealth { get; init; }
-        public required int MaxHealth { get; init; }
-        public required GetCharacterDetailsLocationDto? Location {  get; init; }
+    public required int Id { get; init; }
+    public required string Name { get; init; }
+    public required int Level { get; init; }
+    public required int Experience { get; init; }
+    public required int CurrentHealth { get; init; }
+    public required int MaxHealth { get; init; }
+    public required GetCharacterDetailsLocationDto? Location { get; init; }
+    public required int? CurrentTravelId { get; init; }
 
-        public override string ToString() => $"({Id}) {Name} [{Level}] {{{Location?.Name}}}";
-    }
+    public override string ToString() => $"({Id}) {Name} [{Level}] {{{Location?.Name}}}";
+}
 
-    public class GetCharacterDetailsLocationDto
-    {
-        public required CharacterLocationType Type { get; init; }
-        public required int Id { get; init; }
-        public required string Name { get; init; }
+public class GetCharacterDetailsLocationDto
+{
+    public required CharacterLocationType Type { get; init; }
+    public required int Id { get; init; }
+    public required string Name { get; init; }
 
-        public override string ToString() => $"[{Type}] ({Id}) {Name}";
-    }
+    public override string ToString() => $"[{Type}] ({Id}) {Name}";
 }

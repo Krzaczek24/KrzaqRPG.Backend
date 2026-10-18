@@ -4,16 +4,15 @@ using KrzaqRPG.Backend.Database.SQLite.Entities.Characters;
 using KrzaqRPG.Backend.WebApi.Core.Errors;
 using KrzaqRPG.Backend.WebApi.Core.Extensions;
 
-namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.Create
+namespace KrzaqRPG.Backend.WebApi.CQRS.Commands.Character.Create;
+
+public class CreateCharacterCommandValidator : RequestValidator<CreateCharacterCommand>
 {
-    public class CreateCharacterCommandValidator : RequestValidator<CreateCharacterCommand>
+    public CreateCharacterCommandValidator(IDbCharacterAccess characterAccess)
     {
-        public CreateCharacterCommandValidator(IDbCharacterAccess characterAccess)
-        {
-            RuleFor(x => x.Name)
-                .NotEmpty()
-                .MustAsync(async (name, ct) => !await characterAccess.IsCharacterNameUsedAsync(name, ct))
-                    .WithErrorCode(ErrorCode.NameAlreadyInUse);
-        }
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .MustAsync(async (name, ct) => !await characterAccess.IsCharacterNameUsedAsync(name, ct))
+                .WithErrorCode(ErrorCode.NameAlreadyInUse);
     }
 }

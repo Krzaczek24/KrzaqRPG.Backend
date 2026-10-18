@@ -1,17 +1,16 @@
-﻿namespace KrzaqRPG.Backend.Common
+﻿namespace KrzaqRPG.Backend.Common;
+
+public static class EnvInfo
 {
-    public static class EnvInfo
+    public static bool IsDebug
     {
-        public static bool IsDebug
+        get
         {
-            get
-            {
 #if DEBUG
-                return true;
+            return true;
 #else
-                return false;
+            return false;
 #endif
-            }
         }
     }
 }
