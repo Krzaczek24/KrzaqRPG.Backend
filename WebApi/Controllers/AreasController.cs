@@ -9,17 +9,17 @@ namespace KrzaqRPG.Backend.WebApi.Controllers;
 public class AreasController(IMediator mediator) : ApiController
 {
     [HttpGet]
-    public async ValueTask<ActionResult<ListAreasQueryResult>> GetList(
+    public async ValueTask<ActionResult<ListAreasQueryResult>> GetAreas(
         CancellationToken cancellationToken)
     {
         return Ok(await mediator.Send(new ListAreasQuery(), cancellationToken));
     }
 
-    [HttpGet("{id}/available-paths")]
-    public async ValueTask<ActionResult<GetAreaAvailablePathsQueryResult>> GetAvailablePaths(
-        [FromRoute] int id,
+    [HttpGet("{areaId}/available-paths")]
+    public async ValueTask<ActionResult<GetAreaAvailablePathsQueryResult>> GetAreaAvailablePaths(
+        [FromRoute] int areaId,
         CancellationToken cancellationToken)
     {
-        return Ok(await mediator.Send(new GetAreaAvailablePathsQuery { AreaId = id }, cancellationToken));
+        return Ok(await mediator.Send(new GetAreaAvailablePathsQuery { AreaId = areaId }, cancellationToken));
     }
 }

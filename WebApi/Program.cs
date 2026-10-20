@@ -9,6 +9,7 @@ using KrzaqRPG.Backend.WebApi.Core.Middlewares;
 using KrzaqRPG.Backend.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using System.Text.Json;
@@ -25,10 +26,9 @@ public class Program
     public static void Main(string[] args)
     {
         ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
-        if (EnvInfo.IsDebug)
-        {
-            TravelService.Settings.SlidingExpiration = TimeSpan.FromSeconds(10);
-        }
+#if DEBUG
+        TravelService.Settings.SlidingExpiration = TimeSpan.FromSeconds(10);
+#endif
 
         var builder = WebApplication.CreateBuilder(args);
 
@@ -52,7 +52,16 @@ public class Program
                 options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             });
 
-        builder.Services.AddOpenApi(DOC_NAME);
+        builder.Services.AddOpenApi(DOC_NAME, options =>
+        {
+            options.AddOperationTransformer(async (operation, context, cancellationToken) =>
+            {
+                if (context.Description.ActionDescriptor is ControllerActionDescriptor action)
+                {
+                    operation.OperationId = action.MethodInfo.Name;
+                }
+            });
+        });
 
         builder.Services.ConfigureHttpJsonOptions(opts =>
         {
@@ -64,7 +73,11 @@ public class Program
 
         //builder.Services.Configure<DatabaseConfig>(builder.Configuration.GetSection("database:mikrus"));
 
-        builder.Services.AddAppDatabase(EnvInfo.IsDebug ? new LoggerFactory([new NLogLoggerProvider()]) : null);
+        builder.Services.AddAppDatabase(
+#if DEBUG
+            new LoggerFactory([new NLogLoggerProvider()])
+#endif
+            );
 
         builder.Services.AddMediator().AddHandlers().AddValidators().AddSingleton<IRequestErrorsHandler, ErrorHandler>();
         builder.Services.AddScoped<ITravelService, TravelService>();
@@ -75,14 +88,24 @@ public class Program
             opts.SuppressConsumesConstraintForFormFileParameters = true;
         });
 
+        var allowedOrigins = builder.Configuration.GetSection("CorsSettings:AllowedOrigins").Get<string[]>();
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowSpecificOrigin", policy =>
+            {
+                policy.WithOrigins(allowedOrigins ?? [])
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
+
         var app = builder.Build();
 
         app.MapOpenApi();
 
-        if (EnvInfo.IsDebug)
-        {
-            app.UseSwaggerUI(x => x.SwaggerEndpoint(ENDPOINT, nameof(KrzaqRPG)));
-        }
+#if DEBUG
+        app.UseSwaggerUI(x => x.SwaggerEndpoint(ENDPOINT, nameof(KrzaqRPG)));
+#endif
 
         app.UseWhen(
             context => !context.Request.Path.StartsWithSegments(OPENAPI_PREFIX),
@@ -91,6 +114,8 @@ public class Program
                 .UseLoggingMiddleware()
                 .UseExceptionHandlingMiddleware()
         );
+        
+        app.UseCors("AllowSpecificOrigin");
 
         app.UseAuthorization();
 

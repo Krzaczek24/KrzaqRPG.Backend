@@ -16,7 +16,7 @@ namespace KrzaqRPG.Backend.WebApi.Core.Controllers;
 [ProducesResponse<ErrorResponse>(HttpStatusCode.NotFound)]
 [ProducesResponse<ErrorResponse>(HttpStatusCode.Conflict)]
 [ProducesResponse<ErrorResponse>(HttpStatusCode.InternalServerError)]
-public class ApiController : ControllerBase
+public abstract class ApiController : ControllerBase
 {
     [NonAction]
     public virtual CreatedResult Created(object? value) => Created((string?)null, value);

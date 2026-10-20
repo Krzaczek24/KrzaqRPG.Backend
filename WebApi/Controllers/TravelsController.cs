@@ -11,39 +11,38 @@ namespace KrzaqRPG.Backend.WebApi.Controllers;
 public class TravelsController(IMediator mediator) : ApiController
 {
     [HttpPost]
-    public async ValueTask<ActionResult<BeginTravelCommandResult>> Begin(
+    public async ValueTask<ActionResult<BeginTravelCommandResult>> BeginTravel(
         [FromBody] BeginTravelCommand command,
         CancellationToken cancellationToken)
     {
         return Created(await mediator.Send(command, cancellationToken));
     }
 
-    [HttpGet("{id}")]
-    public async ValueTask<ActionResult<GetTravelDetailsQueryResult>> GetDetails(
-        [FromRoute] int id,
+    [HttpGet("{travelId}")]
+    public async ValueTask<ActionResult<GetTravelDetailsQueryResult>> GetTravelDetails(
+        [FromRoute] int travelId,
         CancellationToken cancellationToken)
     {
-        return Ok(await mediator.Send(new GetTravelDetailsQuery { TravelId = id }, cancellationToken));
+        return Ok(await mediator.Send(new GetTravelDetailsQuery { TravelId = travelId }, cancellationToken));
     }
 
     [HttpGet("estimation")]
-    [Obsolete("apply character modifiers paths to travel times")]
-    public async ValueTask<ActionResult<GetTravelEstimationQueryResult>> GetTravelEstimation(
+    public async ValueTask<ActionResult<GetTravelEstimationQueryResult>> EstimateTravel(
         [FromQuery] GetTravelEstimationQuery query,
         CancellationToken cancellationToken)
     {
         return Ok(await mediator.Send(query, cancellationToken));
     }
 
-    [HttpPost("{id}/events")]
-    public async ValueTask<ActionResult<AddTravelEventCommandResult>> AddEvent(
-        [FromRoute] int id,
+    [HttpPost("{travelId}/events")]
+    public async ValueTask<ActionResult<AddTravelEventCommandResult>> AddTravelEvent(
+        [FromRoute] int travelId,
         [FromBody] AddTravelEventCommand command,
         CancellationToken cancellationToken)
     {
         return Created(await mediator.Send(command with
         {
-            TravelId = id,
+            TravelId = travelId,
             Timestamp = DateTime.Now,
         }, cancellationToken));
     }

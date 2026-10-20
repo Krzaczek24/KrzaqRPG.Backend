@@ -32,7 +32,7 @@ internal class PathTests : IntegrationTestBase
     public async Task TryTravelingFromAreaToAreaTest(IList<string> travelAreas)
     {
         // --- Arrange ---
-        var availableAreas = (await Controller.GetList(default)).Value!.Areas;
+        var availableAreas = (await Controller.GetAreas(default)).Value!.Areas;
 
         if (IsAnyAreaUnavailable(availableAreas.Select(a => a.Name), travelAreas, out string? unavailableArea))
         {
@@ -48,7 +48,7 @@ internal class PathTests : IntegrationTestBase
         // --- Act ---
         while (travelAreasIterator.MoveNext())
         {
-            var currentAreaAvailablePaths = (await Controller.GetAvailablePaths(currentArea.Id, default)).Value!.AvailablePaths;
+            var currentAreaAvailablePaths = (await Controller.GetAreaAvailablePaths(currentArea.Id, default)).Value!.AvailablePaths;
             var nextArea = currentAreaAvailablePaths.Select(x => x.TargetArea).FirstOrDefault(x => x.Name == travelAreasIterator.Current);
             currentArea = availableAreas.FirstOrDefault(x => x.Id == (nextArea?.Id ?? default));
             if (currentArea is null)

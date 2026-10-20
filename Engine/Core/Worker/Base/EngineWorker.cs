@@ -1,5 +1,4 @@
-﻿using KrzaqRPG.Backend.Common;
-using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobs;
+﻿using KrzaqRPG.Backend.Database.SQLite.Entities.EngineWorkerJobs;
 using KrzaqRPG.Backend.Engine.Core.Job;
 using KrzaqRPG.Backend.Engine.Core.Waiter.Interface;
 using Microsoft.Extensions.Caching.Memory;
@@ -135,7 +134,13 @@ internal abstract class EngineWorker<TJob, TWaiter>(
     {
         var job = await Cache.GetOrCreateAsync(CacheKey, opts =>
         {
-            opts.AbsoluteExpiration = ConfigExpiration = DateTime.Now.Add(EnvInfo.IsDebug ? TimeSpan.FromSeconds(10) : TimeSpan.FromMinutes(10));
+            opts.AbsoluteExpiration = ConfigExpiration = DateTime.Now.Add(
+#if DEBUG
+                TimeSpan.FromSeconds(10)
+#else
+                TimeSpan.FromMinutes(10)
+#endif
+                );
 
             Logger.LogInformation("Loading '{JobName}' configuration from database ...", JobName);
 
