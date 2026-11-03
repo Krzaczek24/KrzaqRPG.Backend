@@ -28,6 +28,8 @@ internal class DbAreaAccess(Db db) : IDbAreaAccess
                 Id = a.Id,
                 Name = a.Name,
                 Type = a.Type,
+                PositionX = a.PositionX,
+                PositionY = a.PositionY,
             })
             .ToHashSetAsync(ct);
 

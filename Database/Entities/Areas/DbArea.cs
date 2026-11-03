@@ -9,6 +9,8 @@ public class DbArea : DbTable
 {
     public virtual string Name { get; set; }
     public virtual AreaType Type { get; set; }
+    public virtual int PositionX { get; set; }
+    public virtual int PositionY { get; set; }
     public virtual ICollection<DbCharacter> Characters { get; set; } = [];
     public virtual ICollection<DbPath> OutgoingPaths { get; set; } = [];
 }

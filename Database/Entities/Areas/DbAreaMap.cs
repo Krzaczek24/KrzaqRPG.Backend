@@ -20,6 +20,14 @@ internal class DbAreaMap : DbTableMap<DbArea>
             .HasEnumConversion()
             .IsRequired();
 
+        builder.Property(x => x.PositionX)
+            .HasColumnName("PositionX")
+            .IsRequired();
+
+        builder.Property(x => x.PositionY)
+            .HasColumnName("PositionY")
+            .IsRequired();
+
         builder.HasMany(x => x.Characters)
             .WithOne(c => c.CurrentArea)
             .HasForeignKey(c => c.CurrentAreaId);

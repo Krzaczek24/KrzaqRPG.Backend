@@ -15,7 +15,8 @@ public class ListAreasQueryHandler(IDbAreaAccess areaAccess)
             Areas = areas.Select(area => new AreaDto
             {
                 Id = area.Id,
-                Name = area.Name
+                Name = area.Name,
+                Coordinates = new Coordinates(area.PositionX, area.PositionY)
             }).ToHashSet().AsReadOnly(),
         };
     }
