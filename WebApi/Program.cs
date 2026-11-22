@@ -10,9 +10,11 @@ using KrzaqRPG.Backend.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.OpenApi;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace KrzaqRPG.Backend.WebApi;
@@ -59,6 +61,17 @@ public class Program
                 if (context.Description.ActionDescriptor is ControllerActionDescriptor action)
                 {
                     operation.OperationId = action.MethodInfo.Name;
+                }
+            });
+
+            options.AddSchemaTransformer(async (schema, context, cancellationToken) =>
+            {
+                var type = Nullable.GetUnderlyingType(context.JsonTypeInfo.Type) ?? context.JsonTypeInfo.Type;
+                if (type.IsEnum)
+                {
+                    schema.Type = JsonSchemaType.String;
+                    schema.Format = null;
+                    schema.Enum = [.. Enum.GetNames(type).Select(name => (JsonNode)JsonValue.Create(name)!)];
                 }
             });
         });

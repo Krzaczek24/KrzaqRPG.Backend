@@ -1,4 +1,6 @@
-﻿namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Area.List;
+﻿using KrzaqRPG.Backend.Common.Enums;
+
+namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Area.List;
 
 public class ListAreasQueryResult()
 {
@@ -9,6 +11,7 @@ public class AreaDto
 {
     public required int Id { get; init; }
     public required string Name { get; init; }
+    public required AreaType Type { get; init; }
     public required Coordinates Coordinates { get; init; }
 
     public override string ToString() => $"({Id}) {Name}";

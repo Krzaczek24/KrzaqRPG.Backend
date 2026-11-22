@@ -37,8 +37,9 @@ internal class TravelService(
     [Obsolete("apply character modifiers paths to travel times")]
     public async ValueTask<int> RegisterTravelAsync(int characterId, IList<int> pathIds, CancellationToken cancellationToken = default)
     {
-        var paths = await ComputeTravelTimeAsync(pathIds, cancellationToken);
+        var travelTimes = await ComputeTravelTimeAsync(pathIds, cancellationToken);
         // To Do: apply character modifiers paths to travel times here
+        var paths = pathIds.Join(travelTimes, p => p, t => t.Key, (p, t) => (p, t.Value)).ToList();
         return await access.RegisterTravelAsync(characterId, paths, cancellationToken);
     }
 
@@ -48,7 +49,7 @@ internal class TravelService(
 
         foreach (int pathId in pathIds)
         {
-            travelTimes.Add(pathId, cache.TryGetValue(GetKey(pathId), out TimeSpan times) ? times : default);
+            travelTimes.TryAdd(pathId, cache.TryGetValue(GetKey(pathId), out TimeSpan times) ? times : default);
         }
 
         var missingTimeIds = travelTimes

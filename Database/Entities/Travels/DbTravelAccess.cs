@@ -14,7 +14,7 @@ public interface IDbTravelAccess
     Task<IReadOnlyDictionary<PathType, double>> GetPathTypeTravelTimeFactorsAsync(CancellationToken ct = default);
     Task<IReadOnlyDictionary<PathEnvironment, double>> GetPathEnvironmentTravelTimeFactorsAsync(CancellationToken ct = default);
 
-    Task<int> RegisterTravelAsync(int characterId, IReadOnlyDictionary<int, TimeSpan> paths, CancellationToken ct = default);
+    Task<int> RegisterTravelAsync(int characterId, IReadOnlyList<(int, TimeSpan)> paths, CancellationToken ct = default);
     Task<DbTravel?> GetTravelAsync(int travelId, CancellationToken ct = default);
     Task<IReadOnlySet<DbTravel>> GetAllOngoingTravelsAsync(CancellationToken ct = default);
 
@@ -45,7 +45,7 @@ internal class DbTravelAccess(Db db) : IDbTravelAccess
         return result.AsReadOnly();
     }
 
-    public async Task<int> RegisterTravelAsync(int characterId, IReadOnlyDictionary<int, TimeSpan> paths, CancellationToken ct = default)
+    public async Task<int> RegisterTravelAsync(int characterId, IReadOnlyList<(int, TimeSpan)> paths, CancellationToken ct = default)
     {
         var travel = new DbTravel
         {
@@ -174,6 +174,7 @@ internal class DbTravelAccess(Db db) : IDbTravelAccess
         return pathIds
             .SlidingWindow(2)
             .Select(x => (x[0], x[1]))
+            .Distinct()
             .ToReadOnlyDictionary(x => x, result.Contains);
     }
 }
