@@ -8,13 +8,12 @@ public class AddTravelEventCommandHandler(IDbTravelEventAccess eventAccess) : IR
 {
     public async ValueTask<AddTravelEventCommandResult> Handle(AddTravelEventCommand request, CancellationToken cancellationToken = default)
     {
-        int id = default;
-
-        switch (request.LocationType)
+        int id = request.LocationType switch
         {
-            case TravelEventLocationType.Area: id = await eventAccess.AddTravelAreaEventAsync(request.Timestamp, request.Type, request.TravelId, request.LocationId, cancellationToken); break;
-            case TravelEventLocationType.Path: id = await eventAccess.AddTravelPathEventAsync(request.Timestamp, request.Type, request.TravelId, request.LocationId, cancellationToken); break;
-        }
+            TravelEventLocationType.Area => await eventAccess.AddTravelAreaEventAsync(request.Timestamp, request.Type, request.TravelId, request.LocationId, cancellationToken),
+            TravelEventLocationType.Path => await eventAccess.AddTravelPathEventAsync(request.Timestamp, request.Type, request.TravelId, request.LocationId, cancellationToken),
+            _ => throw new InvalidProgramException($"Invalid location type [{request.LocationType}]")
+        };
 
         return new AddTravelEventCommandResult { Id = id };
     }

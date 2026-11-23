@@ -16,4 +16,5 @@ public class DbTravelEvent : DbTable
     public virtual DbTravelPath? TravelPath { get; set; }
     public virtual int? AreaId { get; set; }
     public virtual DbArea? Area { get; set; }
+    public virtual bool Handled { get; set; }
 }

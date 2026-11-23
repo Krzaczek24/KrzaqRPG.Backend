@@ -46,5 +46,9 @@ internal class DbTravelEventMap : DbTableMap<DbTravelEvent>
         builder.HasOne(ce => ce.Area)
             .WithMany()
             .HasForeignKey(ce => ce.AreaId);
+
+        builder.Property(ce => ce.Handled)
+            .HasColumnName("Handled")
+            .IsRequired();
     }
 }

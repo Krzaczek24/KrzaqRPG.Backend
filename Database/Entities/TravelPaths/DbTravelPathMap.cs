@@ -33,5 +33,13 @@ internal class DbTravelPathMap : DbTableMap<DbTravelPath>
         builder.Property(tp => tp.TravelTime)
             .HasColumnName("TravelTime")
             .IsRequired();
+
+        builder.Property(tp => tp.EventsInitialized)
+            .HasColumnName("EventsInitialized")
+            .IsRequired();
+
+        builder.HasMany(tp => tp.Events)
+            .WithOne(e => e.TravelPath)
+            .HasForeignKey(e => e.TravelPathId);
     }
 }

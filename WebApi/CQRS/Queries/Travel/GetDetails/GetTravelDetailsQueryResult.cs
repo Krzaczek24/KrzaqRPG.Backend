@@ -4,19 +4,19 @@ namespace KrzaqRPG.Backend.WebApi.CQRS.Queries.Travel.GetDetails;
 
 public class GetTravelDetailsQueryResult
 {
-    public required GetTravelDetailsCharacterDto Character { get; set; }
-    public required IReadOnlyList<GetTravelDetailsPathDto> Paths { get; set; }
-    public required bool IsCompleted { get; set; }
-    public required DateTime StartTimestamp { get; set; }
-    public required int TotalDistance { get; set; }
-    public required TimeSpan TotalTravelTime { get; set; }
+    public required GetTravelDetailsCharacterDto Character { get; init; }
+    public required IReadOnlyList<GetTravelDetailsPathDto> Paths { get; init; }
+    public required bool IsCompleted { get; init; }
+    public required DateTime StartTimestamp { get; init; }
+    public required int TotalDistance { get; init; }
+    public required TimeSpan TotalTravelTime { get; init; }
 }
 
 public class GetTravelDetailsCharacterDto
 {
-    public required int Id { get; set; }
-    public required string Name { get; set; }
-    public required GetTravelDetailsCharacterLocationDto? Location { get; set; }
+    public required int Id { get; init; }
+    public required string Name { get; init; }
+    public required GetTravelDetailsCharacterLocationDto? Location { get; init; }
 }
 
 public class GetTravelDetailsCharacterLocationDto
@@ -30,10 +30,20 @@ public class GetTravelDetailsCharacterLocationDto
 
 public class GetTravelDetailsPathDto
 {
-    public required int Id { get; set; }
-    public required string Name { get; set; }
-    public required int Distance { get; set; }
-    public required int DangerLevel { get; set; }
-    public required decimal DangerProbability { get; set; }
-    public required TimeSpan TravelTime { get; set; }
+    public required int Id { get; init; }
+    public required string Name { get; init; }
+    public required int Distance { get; init; }
+    public required int DangerLevel { get; init; }
+    public required decimal DangerProbability { get; init; }
+    public required TimeSpan TravelTime { get; init; }
+    public required int TargetAreaId { get; init; }
+    public required bool EventsGenerated { get; init; }
+    public required IReadOnlyList<GetTravelDetailsPathEventDto> Events { get; init; }
+}
+
+public class GetTravelDetailsPathEventDto
+{
+    public required int Id { get; init; }
+    public required EventType Type { get; init; }
+    public required bool Handled { get; init; }
 }

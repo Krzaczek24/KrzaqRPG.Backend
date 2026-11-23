@@ -3,6 +3,7 @@ using KrzaqRPG.Backend.Common.Enums;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Areas;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Characters;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Paths;
+using KrzaqRPG.Backend.Database.SQLite.Entities.TravelEvents;
 using KrzaqRPG.Backend.Database.SQLite.Entities.TravelPaths;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,27 +48,28 @@ internal class DbTravelAccess(Db db) : IDbTravelAccess
 
     public async Task<int> RegisterTravelAsync(int characterId, IReadOnlyList<(int, TimeSpan)> paths, CancellationToken ct = default)
     {
-        var travel = new DbTravel
+        var character = await db.Characters.FirstAsync(x => x.Id == characterId, ct);
+
+        character.CurrentTravel = new DbTravel
         {
-            CharacterId = characterId,
+            Character = character,
             StartTimestamp = DateTime.Now,
         };
 
         foreach ((int index, (int pathId, TimeSpan travelTime)) in paths.Index())
         {
-            travel.Paths.Add(new DbTravelPath
+            character.CurrentTravel.Paths.Add(new DbTravelPath
             {
                 PathId = pathId,
                 Sequence = index + 1,
-                Travel = travel,
+                Travel = character.CurrentTravel,
                 TravelTime = travelTime,
             });
         }
 
-        await db.Travels.AddAsync(travel, ct);
         await db.SaveChangesAsync(ct);
 
-        return travel.Id;
+        return character.CurrentTravel.Id;
     }
 
     public Task<DbTravel?> GetTravelAsync(int travelId, CancellationToken ct = default)
@@ -100,8 +102,16 @@ internal class DbTravelAccess(Db db) : IDbTravelAccess
                         Distance = tp.Path.Distance,
                         DangerLevel = tp.Path.DangerLevel,
                         DangerProbability = tp.Path.DangerProbability,
+                        EndAreaId = tp.Path.EndAreaId,
                     },
                     TravelTime = tp.TravelTime,
+                    EventsInitialized = tp.EventsInitialized,
+                    Events = tp.Events.OrderBy(tpe => tpe.Timestamp).Select(tpe => new DbTravelEvent
+                    {
+                        Id = tpe.Id,
+                        Type = tpe.Type,
+                        Handled = tpe.Handled,
+                    }).ToList(),
                 }).ToList(),
                 Completed = t.Completed,
                 StartTimestamp = t.StartTimestamp,

@@ -1,5 +1,6 @@
 ﻿using KrzaqRPG.Backend.Database.SQLite.Core;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Paths;
+using KrzaqRPG.Backend.Database.SQLite.Entities.TravelEvents;
 using KrzaqRPG.Backend.Database.SQLite.Entities.Travels;
 
 namespace KrzaqRPG.Backend.Database.SQLite.Entities.TravelPaths;
@@ -12,4 +13,6 @@ public class DbTravelPath : DbTable
     public virtual int PathId { get; set; }
     public virtual DbPath Path { get; set; }
     public virtual TimeSpan TravelTime { get; set; }
+    public virtual bool EventsInitialized { get; set; }
+    public virtual ICollection<DbTravelEvent> Events { get; set; } = [];
 }

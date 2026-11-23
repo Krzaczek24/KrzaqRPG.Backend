@@ -21,6 +21,14 @@ public class GetTravelDetailsQueryHandler(ITravelService travelService) : IReque
             DangerLevel = tp.Path.DangerLevel,
             DangerProbability = tp.Path.DangerProbability,
             TravelTime = tp.TravelTime,
+            TargetAreaId = tp.Path.EndAreaId,
+            EventsGenerated = tp.EventsInitialized,
+            Events = [.. tp.Events.Select(tpe => new GetTravelDetailsPathEventDto
+            {
+                Id = tpe.Id,
+                Type = tpe.Type,
+                Handled = false,
+            })]
         }).ToList();
 
         var response = new GetTravelDetailsQueryResult
